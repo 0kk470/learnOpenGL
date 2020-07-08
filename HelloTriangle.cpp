@@ -27,6 +27,8 @@ const char* fragmentShaderSource = "#version 330 core\n"
 
 void CheckShaderCompileSuccess(GLuint shader);
 
+void CheckShaderLinkSucess(GLuint program);
+
 void HelloTriangle()
 {
 	uint VBO;
