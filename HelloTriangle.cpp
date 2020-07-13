@@ -143,16 +143,39 @@ void DrawRectangle()
 	glBindVertexArray(0);
 }
 
-void HelloTriangle()
-{
-
-	//DrawTriganle();
-	DrawRectangle();
-}
 
 void Exercise1()
 {
+	GLfloat vertices[] = {
+		-1.0f ,0.0f, 0.0f,
+		-0.5f, 1.0f, 0.0f,
+		0.0f,  0.0f, 0.0f,
+		1.0f ,0.0f, 0.0f,
+		0.5f, 1.0f, 0.0f,
+		0.0f,  0.0f, 0.0f,
+	};
 
+	GLuint VBO;
+	glGenBuffers(1, &VBO);
+
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);
+
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(GLfloat) * 3, (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindVertexArray(0);
+
+	glUseProgram(GetShaderProgram());
+
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
 }
 
 void Exercise2()
@@ -163,4 +186,12 @@ void Exercise2()
 void Exercise3()
 {
 
+}
+
+void HelloTriangle()
+{
+
+	//DrawTriganle();
+	//DrawRectangle();
+	Exercise1();
 }
