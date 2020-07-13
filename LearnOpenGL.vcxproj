@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="include\glad.h" />
     <ClInclude Include="include\khrplatform.h" />
+    <ClInclude Include="include\Leanring\HelloTriangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,11 @@
 /* LearnOpenGL 0kk470*/
+#pragma once
+
 #include<glad.h>
 #include<GLFW/glfw3.h>
 #include<iostream>
+
+#include "include/Leanring/HelloTriangle.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -55,6 +59,7 @@ int main()
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		HelloTriangle();
 
 		//others
 
