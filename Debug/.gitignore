@@ -1,6 +1,6 @@
-.pdb
-.obj
-.tlog
-.log
-.ilk
-.idb
+*.pdb
+*.obj
+*.tlog
+*.log
+*.ilk
+*.idb
