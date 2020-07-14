@@ -1,39 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="1_HelloTrianger">
+      <UniqueIdentifier>{7e5e8109-821b-4a2a-b7ef-8f4278ba35d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="2_HelloShader">
+      <UniqueIdentifier>{6a323c04-cfd0-42a5-b2da-9849a75acee0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="lib">
+      <UniqueIdentifier>{83ea6b5b-461b-472e-98cc-09144d415313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="exe">
+      <UniqueIdentifier>{b616adf2-2c94-4aa1-8aac-ebbc347381e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>源文件</Filter>
+    <ClCompile Include="HelloShader.cpp">
+      <Filter>2_HelloShader</Filter>
     </ClCompile>
     <ClCompile Include="HelloTriangle.cpp">
-      <Filter>源文件</Filter>
+      <Filter>1_HelloTrianger</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>2_HelloShader</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>exe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\khrplatform.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="include\Leanring\HelloTriangle.h">
+      <Filter>1_HelloTrianger</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloShader.h">
+      <Filter>2_HelloShader</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>2_HelloShader</Filter>
     </ClInclude>
     <ClInclude Include="include\glad.h">
-      <Filter>头文件</Filter>
+      <Filter>lib</Filter>
     </ClInclude>
-    <ClInclude Include="include\Leanring\HelloTriangle.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="include\khrplatform.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GL\wglew.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GL\glxew.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GL\glew.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="glheader.h">
+      <Filter>lib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
