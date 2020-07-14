@@ -30,3 +30,8 @@ void Test1()
 	glDeleteBuffers(1, &VBO);
 	glDeleteVertexArrays(1, &VAO);
 }
+
+void TestUniform()
+{
+
+}

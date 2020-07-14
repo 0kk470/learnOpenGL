@@ -4,3 +4,5 @@
 void HelloShader();
 
 void Test1();
+
+void TestUniform();
