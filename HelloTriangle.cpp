@@ -58,6 +58,47 @@ GLuint GetShaderProgram()
 	glLinkProgram(shaderProgram);
 	CheckShaderLinkSucess(shaderProgram);
 
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
+	return shaderProgram;
+}
+
+GLuint GetShaderProgram2()
+{
+	const char* vertexShaderSource = "#version 330 core\n"
+		"layout (location = 0) in vec3 aPos;\n"
+		"void main()\n"
+		"{\n"
+		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+		"}\0";
+
+	const char* fragmentShaderSource = "#version 330 core\n"
+		"out vec4 FragColor;\n"
+		"void main()\n"
+		"{\n"
+		"  FragColor = vec4(1.0f, 240f / 255f, 69f / 255f, 1.0f);\n"
+		"}\0";
+
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glCompileShader(vertexShader);
+	CheckShaderCompileSuccess(vertexShader);
+
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glCompileShader(fragmentShader);
+	CheckShaderCompileSuccess(fragmentShader);
+
+	GLuint shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	glLinkProgram(shaderProgram);
+	CheckShaderLinkSucess(shaderProgram);
+
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
 	return shaderProgram;
 }
 
@@ -94,6 +135,9 @@ void DrawTriganle()
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
+
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 }
 
 void DrawRectangle()
@@ -141,6 +185,10 @@ void DrawRectangle()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //Ïß¿òÄ£Ê½
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 }
 
 
@@ -176,16 +224,100 @@ void Exercise1()
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
+
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 }
 
 void Exercise2()
 {
+	GLfloat firstTriangle[] = {
+	-0.9f, -0.5f, 0.0f,  // Left 
+	-0.0f, -0.5f, 0.0f,  // Right
+	-0.45f, 0.5f, 0.0f,  // Top 
+	};
+	GLfloat secondTriangle[] = {
+		 0.0f, -0.5f, 0.0f,  // Left
+		 0.9f, -0.5f, 0.0f,  // Right
+		 0.45f, 0.5f, 0.0f   // Top 
+	};
 
+	GLuint VBO[2];
+	glGenBuffers(2, VBO);
+
+	GLuint VAO[2];
+	glGenVertexArrays(2, VAO);
+
+	glBindVertexArray(VAO[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(firstTriangle), firstTriangle, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
+
+	glBindVertexArray(VAO[1]);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(secondTriangle), secondTriangle, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
+
+	glUseProgram(GetShaderProgram());
+	
+	glBindVertexArray(VAO[0]);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindVertexArray(VAO[1]);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindVertexArray(0);
+
+	glDeleteVertexArrays(2, VAO);
+	glDeleteBuffers(2, VBO);
 }
 
 void Exercise3()
 {
+	GLfloat firstTriangle[] = {
+	-0.9f, -0.5f, 0.0f,  // Left 
+	-0.0f, -0.5f, 0.0f,  // Right
+	-0.45f, 0.5f, 0.0f,  // Top 
+	};
+	GLfloat secondTriangle[] = {
+		 0.0f, -0.5f, 0.0f,  // Left
+		 0.9f, -0.5f, 0.0f,  // Right
+		 0.45f, 0.5f, 0.0f   // Top 
+	};
 
+	GLuint VBO[2];
+	glGenBuffers(2, VBO);
+
+	GLuint VAO[2];
+	glGenVertexArrays(2, VAO);
+
+	glBindVertexArray(VAO[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(firstTriangle), firstTriangle, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
+
+	glBindVertexArray(VAO[1]);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(secondTriangle), secondTriangle, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
+
+	glUseProgram(GetShaderProgram());
+	glBindVertexArray(VAO[0]);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	glUseProgram(GetShaderProgram2());
+	glBindVertexArray(VAO[1]);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindVertexArray(0);
+
+	glDeleteVertexArrays(2, VAO);
+	glDeleteBuffers(2, VBO);
 }
 
 void HelloTriangle()
@@ -193,5 +325,7 @@ void HelloTriangle()
 
 	//DrawTriganle();
 	//DrawRectangle();
-	Exercise1();
+	//Exercise1();
+	//Exercise2();
+	Exercise3();
 }
