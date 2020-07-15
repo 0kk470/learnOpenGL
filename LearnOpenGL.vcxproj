@@ -93,7 +93,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="HelloTexture.cpp" />
     <ClCompile Include="HelloTriangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HelloShader.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glheader.h" />
+    <ClInclude Include="HelloTexture.h" />
     <ClInclude Include="include\glad.h" />
     <ClInclude Include="include\GL\glew.h" />
     <ClInclude Include="include\GL\glxew.h" />
@@ -156,6 +158,7 @@
     <ClInclude Include="include\khrplatform.h" />
     <ClInclude Include="include\Leanring\HelloTriangle.h" />
     <ClInclude Include="HelloShader.h" />
+    <ClInclude Include="include\SOIL.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

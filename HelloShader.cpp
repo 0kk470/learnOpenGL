@@ -27,7 +27,7 @@ void Test1()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	Shader shader("./Shaders/Vertex/helloShader.vertex", "./Shaders/Fragment/helloShader.frag");
+	Shader shader("./Shaders/Vertex/HelloShader/helloShader.vertex", "./Shaders/Fragment/HelloShader/helloShader.frag");
 	shader.Use();
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
@@ -53,7 +53,7 @@ void TestUniform()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	Shader shader("./Shaders/Vertex/helloShader.vertex", "./Shaders/Fragment/uniform.frag");
+	Shader shader("./Shaders/Vertex/HelloShader/helloShader.vertex", "./Shaders/Fragment/HelloShader/uniform.frag");
 	GLfloat timeValue = glfwGetTime();
 	GLfloat greenValue = (sin(timeValue) / 2) + 0.5f;
 	GLint vertexColorLocation = glGetUniformLocation(shader.Program, "vertexColor");
@@ -87,7 +87,7 @@ void TestMoreProperties()
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (GLvoid*)(sizeof(GLfloat) * 3) );
 	glEnableVertexAttribArray(1);
 
-	Shader shader("./Shaders/Vertex/MoreProperties.vertex", "./Shaders/Fragment/MoreProperties.frag");
+	Shader shader("./Shaders/Vertex/HelloShader/MoreProperties.vertex", "./Shaders/Fragment/HelloShader/MoreProperties.frag");
 	shader.Use();
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
@@ -113,7 +113,7 @@ void HelloShaderExercise1()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	Shader shader("./Shaders/Vertex/Exercise1.vertex", "./Shaders/Fragment/helloShader.frag");
+	Shader shader("./Shaders/Vertex/HelloShader/Exercise1.vertex", "./Shaders/Fragment/HelloShader/helloShader.frag");
 	shader.Use();
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
@@ -154,7 +154,7 @@ void HelloShaderExercise2()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	Shader shader("./Shaders/Vertex/Exercise2.vertex", "./Shaders/Fragment/helloShader.frag");
+	Shader shader("./Shaders/Vertex/HelloShader/Exercise2.vertex", "./Shaders/Fragment/HelloShader/helloShader.frag");
 	shader.Use();
 	GLfloat offsetX = PeriodicFunc(glfwGetTime()); //看下pingpong效果
 	GLuint offsetLocation = glGetUniformLocation(shader.Program, "offset");
@@ -183,7 +183,7 @@ void HelloShaderExercise3()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	Shader shader("./Shaders/Vertex/Exercise3.vertex", "./Shaders/Fragment/Exercise3.frag");
+	Shader shader("./Shaders/Vertex/HelloShader/Exercise3.vertex", "./Shaders/Fragment/HelloShader/Exercise3.frag");
 	shader.Use();
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);

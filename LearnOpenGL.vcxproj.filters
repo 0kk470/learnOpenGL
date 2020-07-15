@@ -13,6 +13,9 @@
     <Filter Include="exe">
       <UniqueIdentifier>{b616adf2-2c94-4aa1-8aac-ebbc347381e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_HelloTexture">
+      <UniqueIdentifier>{02e947ba-d32b-46dd-adba-f41a33517e7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>exe</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloTexture.cpp">
+      <Filter>3_HelloTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="glheader.h">
       <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SOIL.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloTexture.h">
+      <Filter>3_HelloTexture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
