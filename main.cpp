@@ -59,7 +59,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//HelloTriangle();
-		HelloShader();
+		//HelloShader();
+		HelloTexture();
 
 		//others
 
