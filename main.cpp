@@ -60,7 +60,7 @@ int main()
 
 		//HelloTriangle();
 		//HelloShader();
-		HelloTexture();
+		HelloTexture(window);
 
 		//others
 

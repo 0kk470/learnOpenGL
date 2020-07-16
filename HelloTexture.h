@@ -2,16 +2,18 @@
 #include "glheader.h"
 #include "SOIL.h"
 
-void HelloTexture();
+void HelloTexture(GLFWwindow* window);
 
-GLuint LoadTexture(const GLchar* path);
+GLuint LoadTexture(const GLchar* path, GLint wrapMode = GL_REPEAT, GLint MagFilterMode = GL_LINEAR, GLint MinFilterMode = GL_LINEAR_MIPMAP_LINEAR);
 
 void TextureTest();
 
-void Exercise1();
+void TextureExercise1();
 
-void Exercise2();
+void TextureExercise2();
 
-void Exercise3();
+void TextureExercise3();
 
-void Exercise4();
+void TextureExercise4(GLFWwindow* window);
+
+void UpdateMixValue(GLFWwindow* wnd, GLuint shaderProgram);
