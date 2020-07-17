@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="HelloTexture.cpp" />
+    <ClCompile Include="HelloTransform.cpp" />
     <ClCompile Include="HelloTriangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HelloShader.cpp" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="glheader.h" />
     <ClInclude Include="HelloTexture.h" />
+    <ClInclude Include="HelloTransform.h" />
     <ClInclude Include="include\glad.h" />
     <ClInclude Include="include\GL\glew.h" />
     <ClInclude Include="include\GL\glxew.h" />

@@ -4,6 +4,7 @@
 #include "include/Leanring/HelloTriangle.h"
 #include "HelloShader.h"
 #include "HelloTexture.h"
+#include "HelloTransform.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -60,7 +61,8 @@ int main()
 
 		//HelloTriangle();
 		//HelloShader();
-		HelloTexture(window);
+		//HelloTexture(window);
+		HelloTransform::TransformMain();
 
 		//others
 

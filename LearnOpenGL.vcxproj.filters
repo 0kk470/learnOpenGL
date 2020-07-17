@@ -16,6 +16,9 @@
     <Filter Include="3_HelloTexture">
       <UniqueIdentifier>{02e947ba-d32b-46dd-adba-f41a33517e7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_HelloTransform">
+      <UniqueIdentifier>{47eac3cf-28bb-4cbb-95aa-bfb4c0808708}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="HelloTexture.cpp">
       <Filter>3_HelloTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloTransform.cpp">
+      <Filter>4_HelloTransform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="HelloTexture.h">
       <Filter>3_HelloTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloTransform.h">
+      <Filter>4_HelloTransform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
