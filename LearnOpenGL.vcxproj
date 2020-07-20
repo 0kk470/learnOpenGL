@@ -161,6 +161,7 @@
     <ClInclude Include="include\Leanring\HelloTriangle.h" />
     <ClInclude Include="HelloShader.h" />
     <ClInclude Include="include\SOIL.h" />
+    <ClInclude Include="Painter.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

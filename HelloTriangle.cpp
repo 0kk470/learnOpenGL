@@ -1,6 +1,6 @@
 #include "include/Leanring/HelloTriangle.h"
 
-void CheckShaderCompileSuccess(GLuint shader)
+void HelloTriangle::CheckShaderCompileSuccess(GLuint shader)
 {
 	int success;
 	char logstr[512];
@@ -13,7 +13,7 @@ void CheckShaderCompileSuccess(GLuint shader)
 	}
 }
 
-void CheckShaderLinkSucess(GLuint program)
+void HelloTriangle::CheckShaderLinkSucess(GLuint program)
 {
 	int success;
 	char logstr[512];
@@ -26,7 +26,7 @@ void CheckShaderLinkSucess(GLuint program)
 	}
 }
 
-GLuint GetShaderProgram()
+GLuint HelloTriangle::GetShaderProgram()
 {
 	const char* vertexShaderSource = "#version 330 core\n"
 		"layout (location = 0) in vec3 aPos;\n"
@@ -64,7 +64,7 @@ GLuint GetShaderProgram()
 	return shaderProgram;
 }
 
-GLuint GetShaderProgram2()
+GLuint HelloTriangle::GetShaderProgram2()
 {
 	const char* vertexShaderSource = "#version 330 core\n"
 		"layout (location = 0) in vec3 aPos;\n"
@@ -103,7 +103,7 @@ GLuint GetShaderProgram2()
 }
 
 
-void DrawTriganle()
+void HelloTriangle::DrawTriganle()
 {
 	float vertices[] = 
 	{
@@ -140,7 +140,7 @@ void DrawTriganle()
 	glDeleteBuffers(1, &VBO);
 }
 
-void DrawRectangle()
+void HelloTriangle::DrawRectangle()
 {
 	GLfloat vertices[] = {
 		0.5f, 0.5f, 0.0f,   // срио╫г
@@ -192,7 +192,7 @@ void DrawRectangle()
 }
 
 
-void Exercise1()
+void HelloTriangle::Exercise1()
 {
 	GLfloat vertices[] = {
 		-1.0f ,0.0f, 0.0f,
@@ -229,7 +229,7 @@ void Exercise1()
 	glDeleteBuffers(1, &VBO);
 }
 
-void Exercise2()
+void HelloTriangle::Exercise2()
 {
 	GLfloat firstTriangle[] = {
 	-0.9f, -0.5f, 0.0f,  // Left 
@@ -274,7 +274,7 @@ void Exercise2()
 	glDeleteBuffers(2, VBO);
 }
 
-void Exercise3()
+void HelloTriangle::Exercise3()
 {
 	GLfloat firstTriangle[] = {
 	-0.9f, -0.5f, 0.0f,  // Left 
@@ -320,7 +320,11 @@ void Exercise3()
 	glDeleteBuffers(2, VBO);
 }
 
-void HelloTriangle()
+void HelloTriangle::OnInit()
+{
+}
+
+void HelloTriangle::OnRender()
 {
 
 	//DrawTriganle();
@@ -328,4 +332,12 @@ void HelloTriangle()
 	//Exercise1();
 	//Exercise2();
 	Exercise3();
+}
+
+void HelloTriangle::HandleInput(GLFWwindow* wnd)
+{
+}
+
+void HelloTriangle::OnDeInit()
+{
 }

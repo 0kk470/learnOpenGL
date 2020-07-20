@@ -5,6 +5,7 @@
 #include "HelloShader.h"
 #include "HelloTexture.h"
 #include "HelloTransform.h"
+#include "Painter.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -15,6 +16,20 @@ void ProcessInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+}
+
+Painter* CreatePainter(const char* name)
+{
+	if (name == "HelloTriangle")
+	{
+		return new HelloTriangle();
+	}
+	else if (name == "")
+	{
+
+	}
+
+	return new Painter();
 }
 
 int main()
@@ -45,15 +60,18 @@ int main()
 		return -1;
 	}
 
-	//glViewport(0, 0, 800, 600);
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+	auto painter = CreatePainter("HelloTriangle");
+
+	painter->OnInit();
 
 	while (!glfwWindowShouldClose(window))
 	{
 		//Input
 		ProcessInput(window);
-
+		painter->HandleInput(window);
 		//Render
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -62,13 +80,15 @@ int main()
 		//HelloTriangle();
 		//HelloShader();
 		//HelloTexture(window);
-		HelloTransform::TransformMain();
-
+		//HelloTransform::TransformMain();
+		painter->OnRender();
 		//others
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+
+	painter->OnDeInit();
 
 	glfwTerminate();
 	return 0;

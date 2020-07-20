@@ -80,5 +80,6 @@
     <ClInclude Include="HelloTransform.h">
       <Filter>4_HelloTransform</Filter>
     </ClInclude>
+    <ClInclude Include="Painter.h" />
   </ItemGroup>
 </Project>
