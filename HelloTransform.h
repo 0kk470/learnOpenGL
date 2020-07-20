@@ -16,8 +16,8 @@ public:
 
 	static void ApplyTransform(GLuint shaderProgram);
 
-	static void Exercise1();
+	static void Exercise1(GLuint shaderProgram);
 
-	static void Exercise2();
+	static void Exercise2(GLuint shaderProgram);
 };
 
