@@ -1,19 +1,44 @@
 #pragma once
-#include "glheader.h"
+#include "Painter.h"
 #include "SOIL.h"
+#include "Resource.h"
 
-void HelloTexture(GLFWwindow* window);
+class HelloTexture :public Painter
+{
+public:
+	virtual void OnInit();
 
-GLuint LoadTexture(const GLchar* path, GLint wrapMode = GL_REPEAT, GLint MagFilterMode = GL_LINEAR, GLint MinFilterMode = GL_LINEAR_MIPMAP_LINEAR);
+	virtual void OnRender();
 
-void TextureTest();
+	virtual void HandleInput(GLFWwindow* wnd);
 
-void TextureExercise1();
+	virtual void OnDeInit();
 
-void TextureExercise2();
+	void TextureTest();
 
-void TextureExercise3();
+	void TextureExercise1();
 
-void TextureExercise4(GLFWwindow* window);
+	void TextureExercise2();
 
-void UpdateMixValue(GLFWwindow* wnd, GLuint shaderProgram);
+	void TextureExercise3();
+
+	void TextureExercise4();
+
+	void UpdateMixValue(GLFWwindow* wnd, GLuint shaderProgram);
+
+private:
+	GLuint tex0;
+	GLuint tex1;
+	GLuint tex_Ex2_0;
+	GLuint tex_Ex2_1;
+	GLuint tex_Ex3_0;
+	GLuint tex_Ex3_1;
+
+	Shader* m_Shader_Default;
+	Shader* m_Shader_Ex1;
+	Shader* m_Shader_Ex4;
+
+	float m_MixVal;
+
+	GLuint VAO, VBO, EBO;
+};

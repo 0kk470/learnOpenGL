@@ -37,6 +37,11 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
 	Program = CreateShaderProgram(vertexCode.c_str(), fragmentCode.c_str());
 }
 
+Shader::~Shader()
+{
+	glDeleteProgram(Program);
+}
+
 void Shader::Use()
 {
 	glUseProgram(Program);

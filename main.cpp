@@ -24,9 +24,17 @@ Painter* CreatePainter(const char* name)
 	{
 		return new HelloTriangle();
 	}
-	else if (name == "")
+	else if (name == "HelloShader")
 	{
-
+		return new HelloShader();
+	}
+	else if (name == "HelloTexture")
+	{
+		return new HelloTexture();
+	}
+	else if (name == "HelloTransform")
+	{
+		return new HelloTransform();
 	}
 
 	return new Painter();
@@ -63,7 +71,10 @@ int main()
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	auto painter = CreatePainter("HelloTriangle");
+	//auto painter = CreatePainter("HelloTriangle");
+	//auto painter = CreatePainter("HelloShader");
+	//auto painter = CreatePainter("HelloTexture");
+	auto painter = CreatePainter("HelloTransform");
 
 	painter->OnInit();
 
@@ -77,10 +88,6 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		//HelloTriangle();
-		//HelloShader();
-		//HelloTexture(window);
-		//HelloTransform::TransformMain();
 		painter->OnRender();
 		//others
 

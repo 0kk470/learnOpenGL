@@ -1,16 +1,19 @@
 #pragma once
-#include "Shader.h"
 
-void HelloShader();
+class HelloShader :public Painter
+{
+public:
+	virtual void OnRender();
 
-void Test1();
+	void Test1();
 
-void TestUniform();
+	void TestUniform();
 
-void TestMoreProperties();
+	void TestMoreProperties();
 
-void HelloShaderExercise1();
+	void HelloShaderExercise1();
 
-void HelloShaderExercise2();
+	void HelloShaderExercise2();
 
-void HelloShaderExercise3();
+	void HelloShaderExercise3();
+};

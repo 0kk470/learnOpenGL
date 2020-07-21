@@ -6,7 +6,7 @@ out vec4 color;
 
 uniform sampler2D ourTexture0;
 uniform sampler2D ourTexture1;
-uniform float mixValue;
+uniform float mixValue = 0.2f;
 
 void main()
 {

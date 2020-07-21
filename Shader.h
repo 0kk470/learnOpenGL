@@ -13,6 +13,8 @@ public:
 
 	Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
 
+	~Shader();
+
 	void Use();
 
 	static void CheckShaderCompileSuccess(GLuint shader);

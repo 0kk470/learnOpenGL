@@ -1,38 +1,49 @@
 #include "HelloTexture.h"
 
-void HelloTexture(GLFWwindow* window)
+void HelloTexture::OnInit()
+{
+	tex0 = Resource::LoadTexture("./resources/HelloTexture/wall.jpg");
+	tex1 = Resource::LoadTexture("./resources/HelloTexture/awesomeface.png");
+	tex_Ex2_0 = Resource::LoadTexture("./resources/HelloTexture/wall.jpg", GL_CLAMP_TO_EDGE, GL_NEAREST);
+	tex_Ex2_1 = Resource::LoadTexture("./resources/HelloTexture/awesomeface.png", GL_REPEAT, GL_NEAREST);
+	tex_Ex3_0 = Resource::LoadTexture("./resources/HelloTexture/wall.jpg", GL_REPEAT, GL_NEAREST);
+	tex_Ex3_1 = Resource::LoadTexture("./resources/HelloTexture/awesomeface.png", GL_REPEAT, GL_NEAREST);
+
+	m_Shader_Default = new Shader("./Shaders/Vertex/HelloTexture/HelloTexture.vertex", "./Shaders/Fragment/HelloTexture/HelloTexture.frag");
+	m_Shader_Ex1 = new Shader("./Shaders/Vertex/HelloTexture/HelloTexture.vertex", "./Shaders/Fragment/HelloTexture/Exercise1.frag");
+	m_Shader_Ex4 = new Shader("./Shaders/Vertex/HelloTexture/HelloTexture.vertex", "./Shaders/Fragment/HelloTexture/Exercise4.frag");
+}
+
+void HelloTexture::OnRender()
 {
 	//TextureTest();
 	//TextureExercise1();
 	//TextureExercise2();
 	//TextureExercise3();
-	TextureExercise4(window);
+	TextureExercise4();
 }
 
-GLuint LoadTexture(const GLchar* path, GLint wrapMode, GLint MagFilterMode , GLint MinFilterMode)
+void HelloTexture::HandleInput(GLFWwindow* window)
 {
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	//float borderColor[] = { 1.0f, 0.6f, 0.6f, 1.0f };
-	//glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, MagFilterMode);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, MinFilterMode);
-
-	int width, height;
-	auto image = SOIL_load_image(path, &width, &height, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return textureID;
+	UpdateMixValue(window, m_Shader_Ex4->Program);
 }
 
-void TextureTest()
+void HelloTexture::OnDeInit()
+{
+	glDeleteTextures(1, &tex0);
+	glDeleteTextures(1, &tex1);
+	glDeleteTextures(1, &tex_Ex2_0);
+	glDeleteTextures(1, &tex_Ex2_1);
+	glDeleteTextures(1, &tex_Ex3_0);
+	glDeleteTextures(1, &tex_Ex3_1);
+
+	delete m_Shader_Default;
+	delete m_Shader_Ex1;
+	delete m_Shader_Ex4;
+
+}
+
+void HelloTexture::TextureTest()
 {
 	GLfloat vertices[] = {
 		//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
@@ -47,10 +58,6 @@ void TextureTest()
 	1, 2, 3  // Second Triangle
 	};
 
-	GLuint texture0 = LoadTexture("./resources/HelloTexture/wall.jpg");
-	GLuint texture1 = LoadTexture("./resources/HelloTexture/awesomeface.png");
-
-	Shader shader("./Shaders/Vertex/HelloTexture/HelloTexture.vertex", "./Shaders/Fragment/HelloTexture/HelloTexture.frag");
 
 	GLuint VAO, VBO, EBO;
 	glGenVertexArrays(1, &VAO);
@@ -73,14 +80,14 @@ void TextureTest()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(sizeof(GLfloat) * 6));
 	glEnableVertexAttribArray(2);
 
-	shader.Use();
+	m_Shader_Default->Use();
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture0);
-	glUniform1i(glGetUniformLocation(shader.Program, "ourTexture0") ,0);
+	glBindTexture(GL_TEXTURE_2D, tex0);
+	glUniform1i(glGetUniformLocation(m_Shader_Default->Program, "ourTexture0") ,0);
 
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-	glUniform1i(glGetUniformLocation(shader.Program, "ourTexture1"), 1);
+	glBindTexture(GL_TEXTURE_2D, tex1);
+	glUniform1i(glGetUniformLocation(m_Shader_Default->Program, "ourTexture1"), 1);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -88,7 +95,7 @@ void TextureTest()
 	glBindVertexArray(0);
 }
 
-void TextureExercise1()
+void HelloTexture::TextureExercise1()
 {
 	GLfloat vertices[] = {
 		//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
@@ -103,12 +110,6 @@ void TextureExercise1()
 	1, 2, 3  // Second Triangle
 	};
 
-	GLuint texture0 = LoadTexture("./resources/HelloTexture/wall.jpg");
-	GLuint texture1 = LoadTexture("./resources/HelloTexture/awesomeface.png");
-
-	Shader shader("./Shaders/Vertex/HelloTexture/HelloTexture.vertex", "./Shaders/Fragment/HelloTexture/Exercise1.frag");
-
-	GLuint VAO, VBO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
@@ -129,14 +130,14 @@ void TextureExercise1()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(sizeof(GLfloat) * 6));
 	glEnableVertexAttribArray(2);
 
-	shader.Use();
+	m_Shader_Ex1->Use();
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture0);
-	glUniform1i(glGetUniformLocation(shader.Program, "ourTexture0"), 0);
+	glBindTexture(GL_TEXTURE_2D, tex0);
+	glUniform1i(glGetUniformLocation(m_Shader_Ex1->Program, "ourTexture0"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-	glUniform1i(glGetUniformLocation(shader.Program, "ourTexture1"), 1);
+	glBindTexture(GL_TEXTURE_2D, tex1);
+	glUniform1i(glGetUniformLocation(m_Shader_Ex1->Program, "ourTexture1"), 1);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -144,7 +145,7 @@ void TextureExercise1()
 	glBindVertexArray(0);
 }
 
-void TextureExercise2()
+void HelloTexture::TextureExercise2()
 {
 	GLfloat vertices[] = {
 		//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
@@ -159,12 +160,6 @@ void TextureExercise2()
 	1, 2, 3  // Second Triangle
 	};
 
-	GLuint texture0 = LoadTexture("./resources/HelloTexture/wall.jpg",GL_CLAMP_TO_EDGE, GL_NEAREST);  //对比Exercise1产生的变化
-	GLuint texture1 = LoadTexture("./resources/HelloTexture/awesomeface.png", GL_REPEAT, GL_NEAREST); //对比Exercise1产生的变化
-
-	Shader shader("./Shaders/Vertex/HelloTexture/HelloTexture.vertex", "./Shaders/Fragment/HelloTexture/HelloTexture.frag"); //对比Exercise1产生的变化
-
-	GLuint VAO, VBO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
@@ -185,14 +180,14 @@ void TextureExercise2()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(sizeof(GLfloat) * 6));
 	glEnableVertexAttribArray(2);
 
-	shader.Use();
+	m_Shader_Default->Use();
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture0);
-	glUniform1i(glGetUniformLocation(shader.Program, "ourTexture0"), 0);
+	glBindTexture(GL_TEXTURE_2D, tex_Ex2_0);
+	glUniform1i(glGetUniformLocation(m_Shader_Default->Program, "ourTexture0"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-	glUniform1i(glGetUniformLocation(shader.Program, "ourTexture1"), 1);
+	glBindTexture(GL_TEXTURE_2D, tex_Ex2_1);
+	glUniform1i(glGetUniformLocation(m_Shader_Default->Program, "ourTexture1"), 1);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -200,7 +195,7 @@ void TextureExercise2()
 	glBindVertexArray(0);
 }
 
-void TextureExercise3()
+void HelloTexture::TextureExercise3()
 {
 	GLfloat vertices[] = {
 		//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
@@ -215,12 +210,6 @@ void TextureExercise3()
 	1, 2, 3  // Second Triangle
 	};//对比Exercise1产生的变化
 
-	GLuint texture0 = LoadTexture("./resources/HelloTexture/wall.jpg", GL_REPEAT, GL_NEAREST);//对比Exercise1产生的变化
-	GLuint texture1 = LoadTexture("./resources/HelloTexture/awesomeface.png", GL_REPEAT, GL_NEAREST);//对比Exercise1产生的变化
-
-	Shader shader("./Shaders/Vertex/HelloTexture/HelloTexture.vertex", "./Shaders/Fragment/HelloTexture/HelloTexture.frag");
-
-	GLuint VAO, VBO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
@@ -241,14 +230,14 @@ void TextureExercise3()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(sizeof(GLfloat) * 6));
 	glEnableVertexAttribArray(2);
 
-	shader.Use();
+	m_Shader_Default->Use();
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture0);
-	glUniform1i(glGetUniformLocation(shader.Program, "ourTexture0"), 0);
+	glBindTexture(GL_TEXTURE_2D, tex_Ex3_0);
+	glUniform1i(glGetUniformLocation(m_Shader_Default->Program, "ourTexture0"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-	glUniform1i(glGetUniformLocation(shader.Program, "ourTexture1"), 1);
+	glBindTexture(GL_TEXTURE_2D, tex_Ex3_1);
+	glUniform1i(glGetUniformLocation(m_Shader_Default->Program, "ourTexture1"), 1);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -256,8 +245,7 @@ void TextureExercise3()
 	glBindVertexArray(0);
 }
 
-Shader* sd;
-void TextureExercise4(GLFWwindow* window)
+void HelloTexture::TextureExercise4()
 {
 	GLfloat vertices[] = {
 		//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
@@ -272,13 +260,6 @@ void TextureExercise4(GLFWwindow* window)
 	1, 2, 3  // Second Triangle
 	};
 
-	GLuint texture0 = LoadTexture("./resources/HelloTexture/wall.jpg");
-	GLuint texture1 = LoadTexture("./resources/HelloTexture/awesomeface.png");
-
-	if(sd == nullptr)
-	 sd = new Shader("./Shaders/Vertex/HelloTexture/HelloTexture.vertex", "./Shaders/Fragment/HelloTexture/Exercise4.frag");
-
-	GLuint VAO, VBO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
@@ -299,18 +280,15 @@ void TextureExercise4(GLFWwindow* window)
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(sizeof(GLfloat) * 6));
 	glEnableVertexAttribArray(2);
 
-	if (sd != nullptr)
-		sd->Use();
+	m_Shader_Ex4->Use();
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture0);
-	glUniform1i(glGetUniformLocation(sd->Program, "ourTexture0"), 0);
+	glBindTexture(GL_TEXTURE_2D, tex0);
+	glUniform1i(glGetUniformLocation(m_Shader_Ex4->Program, "ourTexture0"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-	glUniform1i(glGetUniformLocation(sd->Program, "ourTexture1"), 1);
-
-	UpdateMixValue(window, sd->Program);
-
+	glBindTexture(GL_TEXTURE_2D, tex1);
+	glUniform1i(glGetUniformLocation(m_Shader_Ex4->Program, "ourTexture1"), 1);
+	glUniform1f(glGetUniformLocation(m_Shader_Ex4->Program, "mixValue"), m_MixVal);
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -319,7 +297,7 @@ void TextureExercise4(GLFWwindow* window)
 
 //GLfloat val = 0.2f;
 
-void UpdateMixValue(GLFWwindow* wnd, GLuint shaderProgram)
+void HelloTexture::UpdateMixValue(GLFWwindow* wnd, GLuint shaderProgram)
 {
 	auto location = glGetUniformLocation(shaderProgram, "mixValue");
 	auto val = 0.0f;
@@ -332,8 +310,7 @@ void UpdateMixValue(GLFWwindow* wnd, GLuint shaderProgram)
 	{
 		val += 0.05f;
 	}
-	val = std::fmin(1, std::fmax(val, 0));
-	glUniform1f(glGetUniformLocation(shaderProgram, "mixValue"), val);
+	m_MixVal = std::fmin(1, std::fmax(val, 0));
 }
 
 

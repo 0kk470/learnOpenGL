@@ -19,6 +19,9 @@
     <Filter Include="4_HelloTransform">
       <UniqueIdentifier>{47eac3cf-28bb-4cbb-95aa-bfb4c0808708}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{7b530977-1963-44aa-bf2e-341a91cbe2ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="HelloTransform.cpp">
       <Filter>4_HelloTransform</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,5 +87,8 @@
       <Filter>4_HelloTransform</Filter>
     </ClInclude>
     <ClInclude Include="Painter.h" />
+    <ClInclude Include="Resource.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

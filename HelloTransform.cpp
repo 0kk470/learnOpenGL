@@ -1,15 +1,6 @@
 #include "HelloTransform.h"
 
-void HelloTransform::TransformMain()
-{
-	TestTransform();
-}
-
-
-Shader* sdr;
-GLuint texture0 = 0;
-GLuint texture1 = 0;
-void HelloTransform::TestTransform()
+void HelloTransform::OnInit()
 {
 	GLfloat vertices[] = {
 		//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
@@ -24,15 +15,10 @@ void HelloTransform::TestTransform()
 	1, 2, 3  // Second Triangle
 	};
 
-	if(texture0 == 0)
-		texture0 = LoadTexture("./resources/HelloTexture/wall.jpg");
-	if(texture1 == 0)
-		texture1 = LoadTexture("./resources/HelloTexture/awesomeface.png");
+	texture0 = Resource::LoadTexture("./resources/HelloTexture/wall.jpg");
+	texture1 = Resource::LoadTexture("./resources/HelloTexture/awesomeface.png");
+    m_PtrShader = new Shader("./Shaders/Vertex/HelloTransform/HelloTransform.vertex", "./Shaders/Fragment/HelloTexture/HelloTexture.frag");
 
-	if(sdr == nullptr)
-	 sdr = new Shader("./Shaders/Vertex/HelloTransform/HelloTransform.vertex", "./Shaders/Fragment/HelloTexture/HelloTexture.frag");
-
-	GLuint VAO, VBO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
@@ -53,20 +39,42 @@ void HelloTransform::TestTransform()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(sizeof(GLfloat) * 6));
 	glEnableVertexAttribArray(2);
 
+	glBindVertexArray(0);
+}
 
-	sdr->Use();
+void HelloTransform::OnRender()
+{
+	TestTransform();
+}
 
-	//ApplyTransform(sdr->Program);
-	//Exercise1(sdr->Program);
-	Exercise2(sdr->Program);
+void HelloTransform::OnDeInit()
+{
+	glDeleteTextures(1, &texture0);
+	glDeleteTextures(1, &texture1);
+
+	delete m_PtrShader;
+
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+}
+
+
+void HelloTransform::TestTransform()
+{
+	m_PtrShader->Use();
+
+	//ApplyTransform();
+	//Exercise1();
+	Exercise2();
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture0);
-	glUniform1i(glGetUniformLocation(sdr->Program, "ourTexture0"), 0);
+	glUniform1i(glGetUniformLocation(m_PtrShader->Program, "ourTexture0"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, texture1);
-	glUniform1i(glGetUniformLocation(sdr->Program, "ourTexture1"), 1);
+	glUniform1i(glGetUniformLocation(m_PtrShader->Program, "ourTexture1"), 1);
 
 
 	glBindVertexArray(VAO);
@@ -75,7 +83,7 @@ void HelloTransform::TestTransform()
 	glBindVertexArray(0);
 }
 
-void HelloTransform::ApplyTransform(GLuint shaderProgram)
+void HelloTransform::ApplyTransform()
 {
 	//glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
 	//glm::mat4 trans;
@@ -87,19 +95,19 @@ void HelloTransform::ApplyTransform(GLuint shaderProgram)
 	transform = glm::rotate(transform, (GLfloat)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
 
 	// Get matrix's uniform location and set matrix
-	GLint transformLoc = glGetUniformLocation(shaderProgram, "transform");
+	GLint transformLoc = glGetUniformLocation(m_PtrShader->Program, "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 }
 
 
-void HelloTransform::Exercise1(GLuint shaderProgram)
+void HelloTransform::Exercise1()
 {
 	glm::mat4 transform(1);
 	transform = glm::rotate(transform, (GLfloat)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
 	transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
 
 	// Get matrix's uniform location and set matrix
-	GLint transformLoc = glGetUniformLocation(shaderProgram, "transform");
+	GLint transformLoc = glGetUniformLocation(m_PtrShader->Program, "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
 	/* Why does our container now spin around our screen?:
@@ -124,7 +132,7 @@ void HelloTransform::Exercise1(GLuint shaderProgram)
     */
 }
 
-void HelloTransform::Exercise2(GLuint shaderProgram)
+void HelloTransform::Exercise2()
 {
 	glm::mat4 transform(1);
 	auto fScale = abs( glm::sin(glfwGetTime()) );
@@ -133,6 +141,6 @@ void HelloTransform::Exercise2(GLuint shaderProgram)
 	transform = glm::scale(transform, glm::vec3(fScale, fScale, fScale));
 
 	// Get matrix's uniform location and set matrix
-	GLint transformLoc = glGetUniformLocation(shaderProgram, "transform");
+	GLint transformLoc = glGetUniformLocation(m_PtrShader->Program, "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 }

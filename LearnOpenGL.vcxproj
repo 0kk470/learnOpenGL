@@ -147,6 +147,7 @@
     <ClCompile Include="HelloTriangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HelloShader.cpp" />
+    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +163,7 @@
     <ClInclude Include="HelloShader.h" />
     <ClInclude Include="include\SOIL.h" />
     <ClInclude Include="Painter.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

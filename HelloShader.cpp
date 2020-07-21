@@ -1,6 +1,8 @@
+#include "Painter.h"
+#include "Shader.h"
 #include "HelloShader.h"
 
-void HelloShader()
+void HelloShader::OnRender()
 {
 	/*Test1();*/
 	//TestUniform();
@@ -10,7 +12,7 @@ void HelloShader()
 	HelloShaderExercise3();
 }
 
-void Test1()
+void HelloShader::Test1()
 {
 	GLfloat triangle[] = {
 		0.0f, 0.5f, 0.0f,
@@ -36,7 +38,7 @@ void Test1()
 	glDeleteVertexArrays(1, &VAO);
 }
 
-void TestUniform()
+void HelloShader::TestUniform()
 {
 	GLfloat triangle[] = {
 	0.0f, 0.5f, 0.0f,
@@ -67,13 +69,13 @@ void TestUniform()
 	glDeleteVertexArrays(1, &VAO);
 }
 
-void TestMoreProperties()
+void HelloShader::TestMoreProperties()
 {
 	GLfloat triangle[] = {
-	//vertex			//color
-	 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // 右下
-	-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // 左下
-	 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 顶部
+		//vertex			//color
+		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // 右下
+		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // 左下
+		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 顶部
 	};
 	GLuint VBO, VAO;
 	glGenBuffers(1, &VBO);
@@ -84,7 +86,7 @@ void TestMoreProperties()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (GLvoid*)(sizeof(GLfloat) * 3) );
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (GLvoid*)(sizeof(GLfloat) * 3));
 	glEnableVertexAttribArray(1);
 
 	Shader shader("./Shaders/Vertex/HelloShader/MoreProperties.vertex", "./Shaders/Fragment/HelloShader/MoreProperties.frag");
@@ -96,7 +98,7 @@ void TestMoreProperties()
 	glDeleteVertexArrays(1, &VAO);
 }
 
-void HelloShaderExercise1()
+void HelloShader::HelloShaderExercise1()
 {
 	GLfloat triangle[] = {
 	0.0f, 0.5f, 0.0f,
@@ -137,7 +139,7 @@ inline float PeriodicFunc(float val)
 		return val - 2;
 }
 
-void HelloShaderExercise2()
+void HelloShader::HelloShaderExercise2()
 {
 	GLfloat triangle[] = {
 	0.0f, 0.5f, 0.0f,
@@ -158,7 +160,7 @@ void HelloShaderExercise2()
 	shader.Use();
 	GLfloat offsetX = PeriodicFunc(glfwGetTime()); //看下pingpong效果
 	GLuint offsetLocation = glGetUniformLocation(shader.Program, "offset");
-	glUniform3f(offsetLocation, offsetX, 0.0f, 0.0f); 
+	glUniform3f(offsetLocation, offsetX, 0.0f, 0.0f);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
 
@@ -166,7 +168,7 @@ void HelloShaderExercise2()
 	glDeleteVertexArrays(1, &VAO);
 }
 
-void HelloShaderExercise3()
+void HelloShader::HelloShaderExercise3()
 {
 	GLfloat triangle[] = {
 	0.0f, 0.5f, 0.0f,

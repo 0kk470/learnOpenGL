@@ -1,23 +1,30 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "Painter.h"
 
-#include "glheader.h"
-#include "HelloTexture.h"
-
-class HelloTransform
+class HelloTransform: public Painter
 {
 public:
-	static void TransformMain();
 
-	static void TestTransform();
+	virtual void OnInit();
 
-	static void ApplyTransform(GLuint shaderProgram);
+	virtual void OnRender();
 
-	static void Exercise1(GLuint shaderProgram);
+	virtual void OnDeInit();
 
-	static void Exercise2(GLuint shaderProgram);
+	void TestTransform();
+
+	void ApplyTransform();
+
+	void Exercise1();
+
+	void Exercise2();
+
+private:
+
+	GLuint texture0, texture1;
+	GLuint VAO, VBO, EBO;
+
+	Shader* m_PtrShader;
 };
 
