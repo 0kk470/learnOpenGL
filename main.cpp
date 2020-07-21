@@ -5,7 +5,7 @@
 #include "HelloShader.h"
 #include "HelloTexture.h"
 #include "HelloTransform.h"
-#include "Painter.h"
+#include "HelloCoordinate.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -36,7 +36,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new HelloTransform();
 	}
-
+	else if (name == "HelloCoordinate")
+	{
+		return new HelloCoordinate();
+	}
 	return new Painter();
 }
 
@@ -74,7 +77,8 @@ int main()
 	//auto painter = CreatePainter("HelloTriangle");
 	//auto painter = CreatePainter("HelloShader");
 	//auto painter = CreatePainter("HelloTexture");
-	auto painter = CreatePainter("HelloTransform");
+	//auto painter = CreatePainter("HelloTransform");
+	auto painter = CreatePainter("HelloCoordinate");
 
 	painter->OnInit();
 

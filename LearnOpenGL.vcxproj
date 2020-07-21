@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="HelloCoordinate.cpp" />
     <ClCompile Include="HelloTexture.cpp" />
     <ClCompile Include="HelloTransform.cpp" />
     <ClCompile Include="HelloTriangle.cpp" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glheader.h" />
+    <ClInclude Include="HelloCoordinate.h" />
     <ClInclude Include="HelloTexture.h" />
     <ClInclude Include="HelloTransform.h" />
     <ClInclude Include="include\glad.h" />

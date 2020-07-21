@@ -22,6 +22,9 @@
     <Filter Include="Util">
       <UniqueIdentifier>{7b530977-1963-44aa-bf2e-341a91cbe2ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="5_HelloCoordinate">
+      <UniqueIdentifier>{4fd6f910-f937-4317-9518-d8ad6cc940c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloCoordinate.cpp">
+      <Filter>5_HelloCoordinate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +95,9 @@
     <ClInclude Include="Painter.h" />
     <ClInclude Include="Resource.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloCoordinate.h">
+      <Filter>5_HelloCoordinate</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
