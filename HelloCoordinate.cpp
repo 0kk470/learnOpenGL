@@ -52,7 +52,7 @@ void HelloCoordinate::OnRender()
     //projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 
     //Exercise2
-    view = glm::translate(view, CameraPos);
+    view = glm::translate(view, ViewMat3);
 
     //Exercise1
     projection = glm::perspective(FOV, AspectRatio, 0.1f, 100.0f);
@@ -123,27 +123,27 @@ void HelloCoordinate::Exercise2(GLFWwindow* wnd)
 {
     if (glfwGetKey(wnd, GLFW_KEY_W))
     {
-        CameraPos.z += 0.01f;
+        ViewMat3.z += 0.01f;
     }
     else if (glfwGetKey(wnd, GLFW_KEY_S))
     {
-        CameraPos.z -= 0.01f;
+        ViewMat3.z -= 0.01f;
     }
     if (glfwGetKey(wnd, GLFW_KEY_A))
     {
-        CameraPos.x += 0.01f;
+        ViewMat3.x += 0.01f;
     }
     else if (glfwGetKey(wnd, GLFW_KEY_D))
     {
-        CameraPos.x -= 0.01f;
+        ViewMat3.x -= 0.01f;
     }
     if (glfwGetKey(wnd, GLFW_KEY_Z))
     {
-        CameraPos.y -= 0.01f;
+        ViewMat3.y -= 0.01f;
     }
     else if (glfwGetKey(wnd, GLFW_KEY_C))
     {
-        CameraPos.y += 0.01f;
+        ViewMat3.y += 0.01f;
     }
 }
 

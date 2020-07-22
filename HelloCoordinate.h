@@ -20,7 +20,7 @@ public:
 
 private:
 
-    glm::vec3 CameraPos;
+    glm::vec3 ViewMat3;
 
     GLfloat FOV = 45;
 

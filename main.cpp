@@ -82,6 +82,8 @@ int main()
 
 	painter->OnInit();
 
+	painter->OnWindowAttach(window);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		//Input
