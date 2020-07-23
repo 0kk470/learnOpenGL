@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="HelloCoordinate.cpp" />
     <ClCompile Include="HelloTexture.cpp" />
@@ -150,8 +151,10 @@
     <ClCompile Include="HelloShader.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="glheader.h" />
     <ClInclude Include="HelloCoordinate.h" />
     <ClInclude Include="HelloTexture.h" />
@@ -167,6 +170,7 @@
     <ClInclude Include="Painter.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

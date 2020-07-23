@@ -25,6 +25,9 @@
     <Filter Include="5_HelloCoordinate">
       <UniqueIdentifier>{4fd6f910-f937-4317-9518-d8ad6cc940c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="6_Camera">
+      <UniqueIdentifier>{4364ba72-6e94-48fc-9617-40dc4ae3780a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -53,6 +56,12 @@
     </ClCompile>
     <ClCompile Include="HelloCoordinate.cpp">
       <Filter>5_HelloCoordinate</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>6_Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +107,12 @@
     </ClInclude>
     <ClInclude Include="HelloCoordinate.h">
       <Filter>5_HelloCoordinate</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>6_Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

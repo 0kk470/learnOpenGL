@@ -100,50 +100,51 @@ void HelloCoordinate::Exercise1(GLFWwindow* wnd)
 {
     if(glfwGetKey(wnd, GLFW_KEY_U))
     {
-        FOV -= 0.1f;
+        FOV -= FOVSpeed * Time::deltaTime;
     }
     else if(glfwGetKey(wnd, GLFW_KEY_I))
     {
-        FOV += 0.1f;
+        FOV += FOVSpeed * Time::deltaTime;
     }
 
     if (glfwGetKey(wnd, GLFW_KEY_O))
     {
-        AspectRatio -= 0.1f;
+        AspectRatio -= AspectRatioSpeed * Time::deltaTime;
     }
     else if (glfwGetKey(wnd, GLFW_KEY_P))
     {
-        AspectRatio += 0.1f;
+        AspectRatio += AspectRatioSpeed * Time::deltaTime;
     }
-    FOV = fmax(fmin(FOV, 90), 45);
+    FOV = fmax(fmin(FOV, 60), 45);
     AspectRatio = fmax(fmin(AspectRatio, 2), 1);
 }
 
 void HelloCoordinate::Exercise2(GLFWwindow* wnd)
 {
+    GLfloat movement = MoveSpeed * Time::deltaTime;
     if (glfwGetKey(wnd, GLFW_KEY_W))
     {
-        ViewMat3.z += 0.01f;
+        ViewMat3.z += movement;
     }
     else if (glfwGetKey(wnd, GLFW_KEY_S))
     {
-        ViewMat3.z -= 0.01f;
+        ViewMat3.z -= movement;
     }
     if (glfwGetKey(wnd, GLFW_KEY_A))
     {
-        ViewMat3.x += 0.01f;
+        ViewMat3.x += movement;
     }
     else if (glfwGetKey(wnd, GLFW_KEY_D))
     {
-        ViewMat3.x -= 0.01f;
+        ViewMat3.x -= movement;
     }
     if (glfwGetKey(wnd, GLFW_KEY_Z))
     {
-        ViewMat3.y -= 0.01f;
+        ViewMat3.y -= movement;
     }
     else if (glfwGetKey(wnd, GLFW_KEY_C))
     {
-        ViewMat3.y += 0.01f;
+        ViewMat3.y += movement;
     }
 }
 

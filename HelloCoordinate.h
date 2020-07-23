@@ -24,7 +24,13 @@ private:
 
     GLfloat FOV = 45;
 
+    GLfloat FOVSpeed = 0.1f;
+
     GLfloat AspectRatio = 1.3f;
+
+    GLfloat AspectRatioSpeed = 0.1f;
+
+    GLfloat MoveSpeed = 0.1f;
 
 	GLuint VAO, VBO;
 

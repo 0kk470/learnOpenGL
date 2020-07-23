@@ -7,6 +7,7 @@
 #include "HelloTransform.h"
 #include "HelloCoordinate.h"
 
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -84,8 +85,16 @@ int main()
 
 	painter->OnWindowAttach(window);
 
+	GLfloat NextUpdateTime = 0;
+	GLfloat LastGlobalTime = 0;
 	while (!glfwWindowShouldClose(window))
 	{
+		Time::GameTime = glfwGetTime();
+		if (Time::GameTime < NextUpdateTime)
+			continue;
+		NextUpdateTime = Time::GameTime + FRAME_INTETRVAL;
+		Time::deltaTime = Time::GameTime - LastGlobalTime;
+		LastGlobalTime = Time::deltaTime;
 		//Input
 		ProcessInput(window);
 		painter->HandleInput(window);
