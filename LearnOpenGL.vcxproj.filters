@@ -28,6 +28,9 @@
     <Filter Include="6_Camera">
       <UniqueIdentifier>{4364ba72-6e94-48fc-9617-40dc4ae3780a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="7_Light">
+      <UniqueIdentifier>{362706cb-e137-41f0-88d5-1bc56d87666c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="HelloCamera.cpp">
       <Filter>6_Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloLight.cpp">
+      <Filter>7_Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="HelloCamera.h">
       <Filter>6_Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloLight.h">
+      <Filter>7_Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
