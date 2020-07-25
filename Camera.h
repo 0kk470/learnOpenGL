@@ -75,9 +75,16 @@ public:
     // Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
     void ProcessMouseScroll(GLfloat yoffset);
 
+    //Exercise 1
+    void SetFlyEnable(bool isEnable);
+
 private:
     // Calculates the front vector from the Camera's (updated) Eular Angles
     void updateCameraVectors();
 
+    glm::mat4 MyOwnLookAt(glm::vec3 from, glm::vec3 to, glm::vec3 worldUp);
+
     static Camera* m_MainCamera;
+
+    bool IsFly = true;
 };

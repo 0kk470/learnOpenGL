@@ -28,6 +28,9 @@ void HelloCamera::OnInit()
 
     texture0 = Resource::LoadTexture("./resources/HelloTexture/wall.jpg", GL_REPEAT, GL_LINEAR);
     texture1 = Resource::LoadTexture("./resources/HelloTexture/awesomeface.png", GL_REPEAT, GL_LINEAR);
+
+    //Exercise 1
+    Camera::GetMainCamera()->SetFlyEnable(false);
 }
 
 
@@ -127,32 +130,4 @@ void HelloCamera::OnMouseMoveCallback(GLFWwindow* window, double xpos, double yp
 void HelloCamera::OnMouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset)
 {
     Camera::GetMainCamera()->ProcessMouseScroll(yoffset);
-}
-
-void HelloCamera::Exercise1(GLFWwindow* wnd)
-{
-    if (glfwGetKey(wnd, GLFW_KEY_U))
-    {
-        FOV -= FOVSpeed * Time::deltaTime;
-    }
-    else if (glfwGetKey(wnd, GLFW_KEY_I))
-    {
-        FOV += FOVSpeed * Time::deltaTime;
-    }
-
-    if (glfwGetKey(wnd, GLFW_KEY_O))
-    {
-        AspectRatio -= AspectRatioSpeed * Time::deltaTime;
-    }
-    else if (glfwGetKey(wnd, GLFW_KEY_P))
-    {
-        AspectRatio += AspectRatioSpeed * Time::deltaTime;
-    }
-    FOV = fmax(fmin(FOV, 60), 45);
-    AspectRatio = fmax(fmin(AspectRatio, 2), 1);
-}
-
-void HelloCamera::Exercise2(GLFWwindow* wnd)
-{
-
 }

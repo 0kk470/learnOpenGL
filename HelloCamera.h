@@ -16,10 +16,6 @@ public:
 
     void OnMouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset) override;
 
-    void Exercise1(GLFWwindow* wnd);
-
-    void Exercise2(GLFWwindow* wnd);
-
 private:
 
     GLfloat FOV = 45;
