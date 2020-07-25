@@ -6,7 +6,23 @@
 #include "HelloTexture.h"
 #include "HelloTransform.h"
 #include "HelloCoordinate.h"
+#include "HelloCamera.h"
+#include "Camera.h"
 
+
+void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
+{
+	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
+	if (painter != nullptr)
+		painter->OnMouseMoveCallback(window, xpos, ypos);
+}
+
+void OnMouseScroll(GLFWwindow* window, double xoffset, double yoffset)
+{
+	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
+	if (painter != nullptr)
+		painter->OnMouseScrollCallBack(window, xoffset, yoffset);
+}
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -41,6 +57,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new HelloCoordinate();
 	}
+	else if (name == "HelloCamera")
+	{
+		return new HelloCamera();
+	}
 	return new Painter();
 }
 
@@ -72,18 +92,19 @@ int main()
 		return -1;
 	}
 
-
+	Camera::GetMainCamera();
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+	glfwSetCursorPosCallback(window, OnMouseMove);
+	glfwSetScrollCallback(window, OnMouseScroll);
 	//auto painter = CreatePainter("HelloTriangle");
 	//auto painter = CreatePainter("HelloShader");
 	//auto painter = CreatePainter("HelloTexture");
 	//auto painter = CreatePainter("HelloTransform");
-	auto painter = CreatePainter("HelloCoordinate");
-
+	//auto painter = CreatePainter("HelloCoordinate");
+	auto painter = CreatePainter("HelloCamera");
 	painter->OnInit();
-
 	painter->OnWindowAttach(window);
+	glfwSetWindowUserPointer(window, painter);
 
 	GLfloat NextUpdateTime = 0;
 	GLfloat LastGlobalTime = 0;
@@ -94,7 +115,7 @@ int main()
 			continue;
 		NextUpdateTime = Time::GameTime + FRAME_INTETRVAL;
 		Time::deltaTime = Time::GameTime - LastGlobalTime;
-		LastGlobalTime = Time::deltaTime;
+		LastGlobalTime = Time::GameTime;
 		//Input
 		ProcessInput(window);
 		painter->HandleInput(window);

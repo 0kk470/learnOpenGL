@@ -1,7 +1,7 @@
-#include "HelloCoordinate.h"
+#include "HelloCamera.h"
 
 
-void HelloCoordinate::OnInit()
+void HelloCamera::OnInit()
 {
     glEnable(GL_DEPTH_TEST);
 
@@ -9,11 +9,11 @@ void HelloCoordinate::OnInit()
 
     // Set up vertex data (and buffer(s)) and attribute pointers
 
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
 
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLvoid*)0);
@@ -26,14 +26,14 @@ void HelloCoordinate::OnInit()
     glBindVertexArray(0);
 
 
-    texture0 = Resource::LoadTexture("./resources/HelloTexture/wall.jpg",GL_REPEAT, GL_LINEAR);
+    texture0 = Resource::LoadTexture("./resources/HelloTexture/wall.jpg", GL_REPEAT, GL_LINEAR);
     texture1 = Resource::LoadTexture("./resources/HelloTexture/awesomeface.png", GL_REPEAT, GL_LINEAR);
 }
 
 
 const GLuint WIDTH = 800, HEIGHT = 600;
 
-void HelloCoordinate::OnRender()
+void HelloCamera::OnRender()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -48,14 +48,10 @@ void HelloCoordinate::OnRender()
 
     glm::mat4 view(1);
     glm::mat4 projection(1);
-    //view = glm::translate(view, glm::vec3(0, 0, -3));
-    //projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 
-    //Exercise2
-    view = glm::translate(view, ViewMat3);
+    view = Camera::GetMainCamera()->GetViewMatrix();
 
-    //Exercise1
-    projection = glm::perspective(FOV, AspectRatio, 0.1f, 100.0f);
+    projection = glm::perspective(Camera::GetMainCamera()->Zoom, AspectRatio, 0.1f, 100.0f);
 
     GLuint modelLoc = glGetUniformLocation(m_PtrShader->Program, "model");
     GLint viewLoc = glGetUniformLocation(m_PtrShader->Program, "view");
@@ -70,9 +66,6 @@ void HelloCoordinate::OnRender()
     {
         glm::mat4 model(1);
         model = glm::translate(model, cubePositions[i]);
-        //GLfloat angle = 20 * i;
-        //model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
-        Exercise3(i, model);
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
         glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -81,7 +74,7 @@ void HelloCoordinate::OnRender()
 
 }
 
-void HelloCoordinate::OnDeInit()
+void HelloCamera::OnDeInit()
 {
     delete m_PtrShader;
     m_PtrShader = nullptr;
@@ -90,19 +83,59 @@ void HelloCoordinate::OnDeInit()
     glDeleteBuffers(1, &VBO);
 }
 
-void HelloCoordinate::HandleInput(GLFWwindow* wnd)
+void HelloCamera::HandleInput(GLFWwindow* wnd)
 {
     //Exercise1(wnd);
-    //Exercise2(wnd);
+    GLfloat deltaTime = Time::deltaTime;
+    auto mainCamera = Camera::GetMainCamera();
+    if (glfwGetKey(wnd, GLFW_KEY_W))
+    {
+        mainCamera->ProcessKeyboard(FORWARD, deltaTime);
+    }
+    else if (glfwGetKey(wnd, GLFW_KEY_S))
+    {
+        mainCamera->ProcessKeyboard(BACKWARD, deltaTime);
+    }
+    if (glfwGetKey(wnd, GLFW_KEY_A))
+    {
+        mainCamera->ProcessKeyboard(LEFT, deltaTime);
+    }
+    else if (glfwGetKey(wnd, GLFW_KEY_D))
+    {
+        mainCamera->ProcessKeyboard(RIGHT, deltaTime);
+    }
 }
 
-void HelloCoordinate::Exercise1(GLFWwindow* wnd)
+void HelloCamera::OnMouseMoveCallback(GLFWwindow* window, double xpos, double ypos)
 {
-    if(glfwGetKey(wnd, GLFW_KEY_U))
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	GLfloat xoffset = xpos - lastX;
+	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+
+	lastX = xpos;
+	lastY = ypos;
+
+	Camera::GetMainCamera()->ProcessMouseMovement(xoffset, yoffset);
+}
+
+void HelloCamera::OnMouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset)
+{
+    Camera::GetMainCamera()->ProcessMouseScroll(yoffset);
+}
+
+void HelloCamera::Exercise1(GLFWwindow* wnd)
+{
+    if (glfwGetKey(wnd, GLFW_KEY_U))
     {
         FOV -= FOVSpeed * Time::deltaTime;
     }
-    else if(glfwGetKey(wnd, GLFW_KEY_I))
+    else if (glfwGetKey(wnd, GLFW_KEY_I))
     {
         FOV += FOVSpeed * Time::deltaTime;
     }
@@ -119,39 +152,7 @@ void HelloCoordinate::Exercise1(GLFWwindow* wnd)
     AspectRatio = fmax(fmin(AspectRatio, 2), 1);
 }
 
-void HelloCoordinate::Exercise2(GLFWwindow* wnd)
+void HelloCamera::Exercise2(GLFWwindow* wnd)
 {
-    GLfloat movement = MoveSpeed * Time::deltaTime;
-    if (glfwGetKey(wnd, GLFW_KEY_W))
-    {
-        ViewMat3.z += movement;
-    }
-    else if (glfwGetKey(wnd, GLFW_KEY_S))
-    {
-        ViewMat3.z -= movement;
-    }
-    if (glfwGetKey(wnd, GLFW_KEY_A))
-    {
-        ViewMat3.x += movement;
-    }
-    else if (glfwGetKey(wnd, GLFW_KEY_D))
-    {
-        ViewMat3.x -= movement;
-    }
-    if (glfwGetKey(wnd, GLFW_KEY_Z))
-    {
-        ViewMat3.y -= movement;
-    }
-    else if (glfwGetKey(wnd, GLFW_KEY_C))
-    {
-        ViewMat3.y += movement;
-    }
-}
 
-void HelloCoordinate::Exercise3(int i, glm::mat4& model)
-{
-    float angle = 29 * i;
-    if (i % 3 == 0)  
-        angle = glfwGetTime() * 25.0f;
-    model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 }

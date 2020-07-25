@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="HelloCamera.cpp" />
     <ClCompile Include="HelloCoordinate.cpp" />
     <ClCompile Include="HelloTexture.cpp" />
     <ClCompile Include="HelloTransform.cpp" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="glheader.h" />
+    <ClInclude Include="HelloCamera.h" />
     <ClInclude Include="HelloCoordinate.h" />
     <ClInclude Include="HelloTexture.h" />
     <ClInclude Include="HelloTransform.h" />

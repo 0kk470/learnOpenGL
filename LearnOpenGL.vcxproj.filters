@@ -63,6 +63,9 @@
     <ClCompile Include="Time.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="HelloCamera.cpp">
+      <Filter>6_Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Leanring\HelloTriangle.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloCamera.h">
+      <Filter>6_Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,3 +10,4 @@
 #include "Shader.h"
 #include "Resource.h"
 #include "Time.h"
+#include "Camera.h"
