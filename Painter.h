@@ -10,10 +10,7 @@ public:
 
 	virtual void OnRender() {}
 
-	virtual void OnWindowAttach(GLFWwindow* wnd) 
-    {
-
-    }
+	virtual void OnWindowAttach(GLFWwindow* wnd) {}
 
 	virtual void HandleInput(GLFWwindow* wnd) {}
 
