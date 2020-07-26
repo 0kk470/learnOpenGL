@@ -2,8 +2,8 @@
 
 void HelloLight::OnInit()
 {
-
-	m_LightShader = new Shader("./Shaders/Vertex/HelloLight/lighting.vertex", "./Shaders/Fragment/HelloLight/lighting.frag");
+	glEnable(GL_DEPTH_TEST);
+	m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLight/lighting.vertex", "./Shaders/Fragment/HelloLight/lighting.frag");
 	m_LampShader = new Shader("./Shaders/Vertex/HelloLight/lamp.vertex", "./Shaders/Fragment/HelloLight/lamp.frag");
 
 	glGenVertexArrays(1, &containerVAO);
@@ -12,14 +12,16 @@ void HelloLight::OnInit()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glBindVertexArray(containerVAO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT) * 3, (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT) * 6, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT) * 6, (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
 	glBindVertexArray(0);
 
 	glGenVertexArrays(1, &lightVAO);
 	glBindVertexArray(lightVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT) * 3, (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT) * 6, (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
 }
@@ -29,41 +31,36 @@ void HelloLight::OnRender()
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	m_LightShader->Use();
-	GLint objectColorLoc = glGetUniformLocation(m_LightShader->Program, "objectColor");
-	GLint lightColorLoc = glGetUniformLocation(m_LightShader->Program, "lightColor");
-	glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
-	glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
+	glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
+	m_LightingObjShader->Use();
+	m_LightingObjShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+	m_LightingObjShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+	m_LightingObjShader->setVec3("lightPos", lightPos);
 
 	auto mainCamera = Camera::GetMainCamera();
 	glm::mat4 view = mainCamera->GetViewMatrix();
 	auto projection = glm::perspective(mainCamera->Zoom, 800.0f / 600.0f, 0.1f, 100.0f);
 
-	GLint modelLoc = glGetUniformLocation(m_LightShader->Program, "model");
-	GLint viewLoc = glGetUniformLocation(m_LightShader->Program, "view");
-	GLint projLoc = glGetUniformLocation(m_LightShader->Program, "projection");
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+	m_LightingObjShader->setMat4("projection", projection);
+	m_LightingObjShader->setMat4("view", view);
+
+	glm::mat4 model(1);
+	m_LightingObjShader->setMat4("model", model);
 
 	glBindVertexArray(containerVAO);
-	glm::mat4 model(1);
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 
 	m_LampShader->Use();
 
-	modelLoc = glGetUniformLocation(m_LampShader->Program, "model");
-	viewLoc = glGetUniformLocation(m_LampShader->Program, "view");
-	projLoc = glGetUniformLocation(m_LampShader->Program, "projection");
-
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+	m_LampShader->setMat4("projection", projection);
+	m_LampShader->setMat4("view", view);
 	model = glm::mat4(1);
-	glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 	model = glm::translate(model, lightPos);
 	model = glm::scale(model, glm::vec3(0.2f)); 
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	m_LampShader->setMat4("model", model);
 
 	glBindVertexArray(lightVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -121,6 +118,6 @@ void HelloLight::OnMouseScrollCallBack(GLFWwindow* window, double xoffset, doubl
 
 void HelloLight::OnDeInit()
 {
-	delete m_LightShader;
+	delete m_LightingObjShader;
 	delete m_LampShader;
 }
