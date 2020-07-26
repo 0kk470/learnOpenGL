@@ -1,13 +1,14 @@
 /* LearnOpenGL 0kk470*/
 #pragma once
 
+#include "Camera.h"
 #include "include/Leanring/HelloTriangle.h"
 #include "HelloShader.h"
 #include "HelloTexture.h"
 #include "HelloTransform.h"
 #include "HelloCoordinate.h"
 #include "HelloCamera.h"
-#include "Camera.h"
+#include "HelloLight.h"
 
 
 void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
@@ -61,6 +62,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new HelloCamera();
 	}
+	else if (name == "HelloLight")
+	{
+		return new HelloLight();
+	}
 	return new Painter();
 }
 
@@ -93,15 +98,18 @@ int main()
 	}
 
 	Camera::GetMainCamera();
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, OnMouseMove);
 	glfwSetScrollCallback(window, OnMouseScroll);
+
 	//auto painter = CreatePainter("HelloTriangle");
 	//auto painter = CreatePainter("HelloShader");
 	//auto painter = CreatePainter("HelloTexture");
 	//auto painter = CreatePainter("HelloTransform");
 	//auto painter = CreatePainter("HelloCoordinate");
-	auto painter = CreatePainter("HelloCamera");
+	//auto painter = CreatePainter("HelloCamera");
+	auto painter = CreatePainter("HelloLight");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);
