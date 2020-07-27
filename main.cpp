@@ -10,11 +10,12 @@
 #include "HelloCamera.h"
 #include "HelloLight.h"
 
+bool IsConsoleOpen = true;
 
 void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 {
-	if (ImGui::IsWindowHovered(ImGuiFocusedFlags_AnyWindow))
-		return;
+	//if (ImGui::IsWindowHovered(ImGuiFocusedFlags_AnyWindow))
+	//	return;
 	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
 	if (painter != nullptr)
 		painter->OnMouseMoveCallback(window, xpos, ypos);
@@ -22,12 +23,18 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 
 void OnMouseScroll(GLFWwindow* window, double xoffset, double yoffset)
 {
-	if (ImGui::IsWindowHovered(ImGuiFocusedFlags_AnyWindow))
-		return;
 
 	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
 	if (painter != nullptr)
 		painter->OnMouseScrollCallBack(window, xoffset, yoffset);
+}
+
+void OnKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_GRAVE_ACCENT && action == GLFW_PRESS)
+	{
+		IsConsoleOpen = !IsConsoleOpen;
+	}
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -105,6 +112,18 @@ void DiposeImGUI()
 	ImGui::DestroyContext();
 }
 
+void DrawConsole()
+{
+	if (IsConsoleOpen)
+	{
+		ImGui::SetNextWindowSize(ImVec2(400, 200));
+		ImGui::SetNextWindowPos(ImVec2(0, 0));
+		ImGui::Begin("Console");
+		ImGui::Text("a New Console");
+		ImGui::End();
+	}
+}
+
 int main()
 {
 	glfwInit();
@@ -140,6 +159,7 @@ int main()
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, OnMouseMove);
 	glfwSetScrollCallback(window, OnMouseScroll);
+	//glfwSetKeyCallback(window, OnKeyEvent);
 
 	//auto painter = CreatePainter("HelloTriangle");
 	//auto painter = CreatePainter("HelloShader");
@@ -168,15 +188,11 @@ int main()
 		LastGlobalTime = Time::GameTime;
 		//Input
 
-		if (!ImGui::IsWindowHovered(ImGuiFocusedFlags_AnyWindow))
-		{
-			ProcessInput(window);
-			painter->HandleInput(window);
-		}
+		ProcessInput(window);
+		painter->HandleInput(window);
 
 		//Render
-		ImGui::ShowUserGuide();
-
+		DrawConsole();
 
 		ImGui::Render();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
