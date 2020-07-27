@@ -13,6 +13,8 @@
 
 void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 {
+	if (ImGui::IsWindowHovered(ImGuiFocusedFlags_AnyWindow))
+		return;
 	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
 	if (painter != nullptr)
 		painter->OnMouseMoveCallback(window, xpos, ypos);
@@ -20,6 +22,9 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 
 void OnMouseScroll(GLFWwindow* window, double xoffset, double yoffset)
 {
+	if (ImGui::IsWindowHovered(ImGuiFocusedFlags_AnyWindow))
+		return;
+
 	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
 	if (painter != nullptr)
 		painter->OnMouseScrollCallBack(window, xoffset, yoffset);
@@ -69,6 +74,37 @@ Painter* CreatePainter(const char* name)
 	return new Painter();
 }
 
+void InitImGUI(GLFWwindow* window)
+{
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsClassic();
+
+	// Setup Platform/Renderer bindings
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+}
+
+void ImGUI_Frame()
+{
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+}
+
+void DiposeImGUI()
+{
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+}
+
 int main()
 {
 	glfwInit();
@@ -97,8 +133,10 @@ int main()
 		return -1;
 	}
 
+	InitImGUI(window);
+
 	Camera::GetMainCamera();
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, OnMouseMove);
 	glfwSetScrollCallback(window, OnMouseScroll);
@@ -118,6 +156,10 @@ int main()
 	GLfloat LastGlobalTime = 0;
 	while (!glfwWindowShouldClose(window))
 	{
+		glfwPollEvents();
+
+		ImGUI_Frame();
+
 		Time::GameTime = glfwGetTime();
 		if (Time::GameTime < NextUpdateTime)
 			continue;
@@ -125,21 +167,31 @@ int main()
 		Time::deltaTime = Time::GameTime - LastGlobalTime;
 		LastGlobalTime = Time::GameTime;
 		//Input
-		ProcessInput(window);
-		painter->HandleInput(window);
-		//Render
 
+		if (!ImGui::IsWindowHovered(ImGuiFocusedFlags_AnyWindow))
+		{
+			ProcessInput(window);
+			painter->HandleInput(window);
+		}
+
+		//Render
+		ImGui::ShowUserGuide();
+
+
+		ImGui::Render();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		painter->OnRender();
-		//others
 
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		//others
 		glfwSwapBuffers(window);
-		glfwPollEvents();
 	}
 
 	painter->OnDeInit();
+
+	DiposeImGUI();
 
 	glfwTerminate();
 	return 0;

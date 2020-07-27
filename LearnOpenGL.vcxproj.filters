@@ -31,6 +31,9 @@
     <Filter Include="7_Light">
       <UniqueIdentifier>{362706cb-e137-41f0-88d5-1bc56d87666c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\imgui">
+      <UniqueIdentifier>{53517f3e-a80e-4f14-8119-2d69812f2342}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -72,6 +75,12 @@
     <ClCompile Include="HelloLight.cpp">
       <Filter>7_Light</Filter>
     </ClCompile>
+    <ClCompile Include="include\imgui\imgui_impl_opengl3.cpp">
+      <Filter>lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_impl_glfw.cpp">
+      <Filter>lib\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Leanring\HelloTriangle.h">
@@ -93,9 +102,6 @@
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="include\GL\glxew.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GL\glew.h">
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="glheader.h">
@@ -128,6 +134,27 @@
     </ClInclude>
     <ClInclude Include="HelloLight.h">
       <Filter>7_Light</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imstb_textedit.h">
+      <Filter>lib\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_stdlib.h">
+      <Filter>lib\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_internal.h">
+      <Filter>lib\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui.h">
+      <Filter>lib\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imconfig.h">
+      <Filter>lib\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_impl_opengl3.h">
+      <Filter>lib\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_impl_glfw.h">
+      <Filter>lib\imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
