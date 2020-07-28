@@ -31,22 +31,28 @@ void HelloLight::OnRender()
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
-	m_LightingObjShader->Use();
-	m_LightingObjShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-	m_LightingObjShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-	m_LightingObjShader->setVec3("lightPos", lightPos);
+	DrawLightParamWindow();
 
 	auto mainCamera = Camera::GetMainCamera();
+	m_LightingObjShader->Use();
+	m_LightingObjShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+	m_LightingObjShader->setVec3("lightColor", lightColor[0], lightColor[1], lightColor[2]);
+	m_LightingObjShader->setVec3("lightPos", lightPos[0], lightPos[1], lightPos[2]);
+	m_LightingObjShader->setVec3("viewPos", mainCamera->Position);
+
+	m_LightingObjShader->setFloat("ambientStrength", ambient);
+	m_LightingObjShader->setInt("shininess", shininess);
+	m_LightingObjShader->setFloat("specularStrength", specularStrength);
+
 	glm::mat4 view = mainCamera->GetViewMatrix();
 	auto projection = glm::perspective(mainCamera->Zoom, 800.0f / 600.0f, 0.1f, 100.0f);
 
-	m_LightingObjShader->setMat4("projection", projection);
-	m_LightingObjShader->setMat4("view", view);
-
 	glm::mat4 model(1);
 	m_LightingObjShader->setMat4("model", model);
+	m_LightingObjShader->setMat4("view", view);
+	m_LightingObjShader->setMat4("projection", projection);
+
 
 	glBindVertexArray(containerVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -57,11 +63,11 @@ void HelloLight::OnRender()
 	m_LampShader->setMat4("projection", projection);
 	m_LampShader->setMat4("view", view);
 	model = glm::mat4(1);
-	model = glm::translate(model, lightPos);
-	model = glm::scale(model, glm::vec3(0.2f)); 
+	model = glm::translate(model, glm::vec3(lightPos[0], lightPos[1], lightPos[2]));
+	model = glm::scale(model, glm::vec3(0.2f));
 
 	m_LampShader->setMat4("model", model);
-
+	m_LampShader->setVec3("lightColor", lightColor[0], lightColor[1], lightColor[2]);
 	glBindVertexArray(lightVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
@@ -120,4 +126,16 @@ void HelloLight::OnDeInit()
 {
 	delete m_LightingObjShader;
 	delete m_LampShader;
+}
+
+void HelloLight::DrawLightParamWindow()
+{
+	ImGui::SetNextWindowPos(ImVec2(800, 600), 0, ImVec2(1, 1));
+	ImGui::Begin("Light Modifier", 0, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::ColorEdit3("light color", lightColor);
+	ImGui::DragFloat3("Light Pos", lightPos, 0.3f);
+	ImGui::SliderFloat("Diffuse Strength", &ambient, 0, 1);
+	ImGui::SliderFloat("Specular Strength", &specularStrength, 0, 1);
+	ImGui::SliderInt("shininess", &shininess, 0, 256);
+	ImGui::End();
 }

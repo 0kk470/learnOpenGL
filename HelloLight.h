@@ -20,6 +20,8 @@ public:
 
 private:
 
+    void DrawLightParamWindow();
+
 	Shader *m_LightingObjShader, *m_LampShader;
 
 	GLuint VBO, containerVAO, lightVAO;
@@ -32,12 +34,12 @@ private:
         -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 
         -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
         -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
@@ -71,5 +73,15 @@ private:
     bool firstMouse = true;
 
     GLfloat lastX, lastY;
+
+    float lightColor[3] = { 1.0f, 1.0f, 1.0f };
+
+    float lightPos[3] = { 0.5f, 0.8f, 1.0f };
+
+    float ambient = 0.1f;
+
+    float specularStrength = 0.5f;
+
+    int shininess = 32;
 };
 
