@@ -22,6 +22,10 @@ private:
 
     void DrawLightParamWindow();
 
+    void basic_light_exercise3();
+
+    void basic_light_exercise4();
+
 	Shader *m_LightingObjShader, *m_LampShader;
 
 	GLuint VBO, containerVAO, lightVAO;

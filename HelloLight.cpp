@@ -3,8 +3,13 @@
 void HelloLight::OnInit()
 {
 	glEnable(GL_DEPTH_TEST);
-	m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLight/lighting.vertex", "./Shaders/Fragment/HelloLight/lighting.frag");
-	m_LampShader = new Shader("./Shaders/Vertex/HelloLight/lamp.vertex", "./Shaders/Fragment/HelloLight/lamp.frag");
+	//Default Shader
+	//m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLight/lighting.vertex", "./Shaders/Fragment/HelloLight/lighting.frag");
+	//m_LampShader = new Shader("./Shaders/Vertex/HelloLight/lamp.vertex", "./Shaders/Fragment/HelloLight/lamp.frag");
+	
+	//basic_light_exercise3();
+	
+	basic_light_exercise4();
 
 	glGenVertexArrays(1, &containerVAO);
 	glGenBuffers(1, &VBO);
@@ -138,4 +143,16 @@ void HelloLight::DrawLightParamWindow()
 	ImGui::SliderFloat("Specular Strength", &specularStrength, 0, 1);
 	ImGui::SliderInt("shininess", &shininess, 0, 256);
 	ImGui::End();
+}
+
+void HelloLight::basic_light_exercise3()
+{
+	m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLight/basic_light_exercise3.vertex", "./Shaders/Fragment/HelloLight/basic_light_exercise3.frag");
+	m_LampShader = new Shader("./Shaders/Vertex/HelloLight/lamp.vertex", "./Shaders/Fragment/HelloLight/lamp.frag");
+}
+
+void HelloLight::basic_light_exercise4()
+{
+	m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLight/basic_light_exercise4.vertex", "./Shaders/Fragment/HelloLight/basic_light_exercise4.frag");
+	m_LampShader = new Shader("./Shaders/Vertex/HelloLight/lamp.vertex", "./Shaders/Fragment/HelloLight/lamp.frag");
 }
