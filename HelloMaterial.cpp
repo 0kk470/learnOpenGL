@@ -38,14 +38,17 @@ void HelloMaterial::OnRender()
 
 	auto mainCamera = Camera::GetMainCamera();
 	m_LightingObjShader->Use();
-	m_LightingObjShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-	m_LightingObjShader->setVec3("lightColor", lightColor[0], lightColor[1], lightColor[2]);
-	m_LightingObjShader->setVec3("lightPos", lightPos[0], lightPos[1], lightPos[2]);
+	m_LightingObjShader->setVec3("light.position", lightPos[0], lightPos[1], lightPos[2]);
 	m_LightingObjShader->setVec3("viewPos", mainCamera->Position);
 
-	m_LightingObjShader->setFloat("ambientStrength", ambient);
-	m_LightingObjShader->setInt("shininess", shininess);
-	m_LightingObjShader->setFloat("specularStrength", specularStrength);
+	m_LightingObjShader->setVec3("light.ambient", light_ambient[0], light_ambient[1], light_ambient[2]);
+	m_LightingObjShader->setVec3("light.diffuse", light_diffuse[0], light_diffuse[1], light_diffuse[2]);
+	m_LightingObjShader->setVec3("light.specular", light_specular[0], light_specular[1], light_specular[2]);
+
+	m_LightingObjShader->setVec3("material.ambient", ambient[0],ambient[1],ambient[2]);
+	m_LightingObjShader->setVec3("material.diffuse", diffuse[0], diffuse[1], diffuse[2]);
+	m_LightingObjShader->setVec3("material.specular", specular[0], specular[1], specular[2]);
+	m_LightingObjShader->setFloat("material.shininess", shininess);
 
 	glm::mat4 view = mainCamera->GetViewMatrix();
 	auto projection = glm::perspective(mainCamera->Zoom, 800.0f / 600.0f, 0.1f, 100.0f);
@@ -134,11 +137,18 @@ void HelloMaterial::DrawLightParamWindow()
 {
 	ImGui::SetNextWindowPos(ImVec2(800, 600), 0, ImVec2(1, 1));
 	ImGui::Begin("Light Modifier", 0, ImGuiWindowFlags_AlwaysAutoResize);
-	ImGui::ColorEdit3("light color", lightColor);
-	ImGui::DragFloat3("Light Pos", lightPos, 0.3f);
-	ImGui::SliderFloat("Diffuse Strength", &ambient, 0, 1);
-	ImGui::SliderFloat("Specular Strength", &specularStrength, 0, 1);
+	ImGui::BulletText("Lamp Attribute");
+	ImGui::ColorEdit3("Lamp Color", lightColor);
+	ImGui::DragFloat3("Lamp Pos", lightPos, 0.05f);
+	ImGui::BulletText("Cube Attribute");
+	ImGui::DragFloat3("Ambient ", ambient, 0.05f, 0 ,1);
+	ImGui::DragFloat3("Diffuse ", diffuse, 0.05f, 0, 1);
+	ImGui::DragFloat3("Specular ", specular, 0.05f, 0, 1);
 	ImGui::SliderInt("shininess", &shininess, 0, 256);
+	ImGui::BulletText("Light Attribute");
+	ImGui::DragFloat3("Ambient ", light_ambient, 0.05f, 0, 1);
+	ImGui::DragFloat3("Diffuse ", light_diffuse, 0.05f, 0, 1);
+	ImGui::DragFloat3("Specular ", light_specular, 0.05f, 0, 1);
 	ImGui::End();
 }
 

@@ -82,9 +82,17 @@ private:
 
     float lightPos[3] = { 0.5f, 0.8f, 1.0f };
 
-    float ambient = 0.1f;
+    float ambient[3] = { 1.0f, 0.5f, 0.31f };
 
-    float specularStrength = 0.5f;
+    float diffuse[3] = { 1.0f, 0.5f, 0.31f };
+
+    float specular[3] = { 0.5f, 0.5f, 0.5f };
+
+    float light_ambient[3] = { 0.2f, 0.2f, 0.2f };
+
+    float light_diffuse[3] = { 0.5f, 0.5f, 0.5f };
+
+    float light_specular[3] = { 1.0f, 1.0f, 1.0f };
 
     int shininess = 32;
 };
