@@ -34,6 +34,9 @@
     <Filter Include="lib\imgui">
       <UniqueIdentifier>{53517f3e-a80e-4f14-8119-2d69812f2342}</UniqueIdentifier>
     </Filter>
+    <Filter Include="8_HelloMaterial">
+      <UniqueIdentifier>{d9fde6f3-7c6d-404e-9e0d-1ef3f0d58613}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -83,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="HelloMaterial.cpp">
+      <Filter>8_HelloMaterial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="Debug.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloMaterial.h">
+      <Filter>8_HelloMaterial</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -147,6 +147,7 @@
     <ClCompile Include="HelloCamera.cpp" />
     <ClCompile Include="HelloCoordinate.cpp" />
     <ClCompile Include="HelloLight.cpp" />
+    <ClCompile Include="HelloMaterial.cpp" />
     <ClCompile Include="HelloTexture.cpp" />
     <ClCompile Include="HelloTransform.cpp" />
     <ClCompile Include="HelloTriangle.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="HelloCamera.h" />
     <ClInclude Include="HelloCoordinate.h" />
     <ClInclude Include="HelloLight.h" />
+    <ClInclude Include="HelloMaterial.h" />
     <ClInclude Include="HelloTexture.h" />
     <ClInclude Include="HelloTransform.h" />
     <ClInclude Include="include\glad.h" />

@@ -10,6 +10,7 @@
 #include "HelloCoordinate.h"
 #include "HelloCamera.h"
 #include "HelloLight.h"
+#include "HelloMaterial.h"
 
 bool IsConsoleOpen = true;
 bool IgnoreInput = false;
@@ -100,6 +101,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new HelloLight();
 	}
+	else if (name == "HelloMaterial")
+	{
+		return new HelloMaterial();
+	}
 	return new Painter();
 }
 
@@ -178,7 +183,8 @@ int main()
 	//auto painter = CreatePainter("HelloTransform");
 	//auto painter = CreatePainter("HelloCoordinate");
 	//auto painter = CreatePainter("HelloCamera");
-	auto painter = CreatePainter("HelloLight");
+	//auto painter = CreatePainter("HelloLight");
+	auto painter = CreatePainter("HelloMaterial");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);
