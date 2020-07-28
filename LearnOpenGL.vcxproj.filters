@@ -81,6 +81,9 @@
     <ClCompile Include="include\imgui\imgui_impl_glfw.cpp">
       <Filter>lib\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Leanring\HelloTriangle.h">
@@ -155,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="include\imgui\imgui_impl_glfw.h">
       <Filter>lib\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

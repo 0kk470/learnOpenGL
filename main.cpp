@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Camera.h"
+#include "Debug.h"
 #include "include/Leanring/HelloTriangle.h"
 #include "HelloShader.h"
 #include "HelloTexture.h"
@@ -11,11 +12,12 @@
 #include "HelloLight.h"
 
 bool IsConsoleOpen = true;
+bool IgnoreInput = false;
 
 void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 {
-	//if (ImGui::IsWindowHovered(ImGuiFocusedFlags_AnyWindow))
-	//	return;
+	if (IgnoreInput)
+		return;
 	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
 	if (painter != nullptr)
 		painter->OnMouseMoveCallback(window, xpos, ypos);
@@ -23,7 +25,8 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 
 void OnMouseScroll(GLFWwindow* window, double xoffset, double yoffset)
 {
-
+	if (IgnoreInput)
+		return;
 	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
 	if (painter != nullptr)
 		painter->OnMouseScrollCallBack(window, xoffset, yoffset);
@@ -33,7 +36,21 @@ void OnKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_GRAVE_ACCENT && action == GLFW_PRESS)
 	{
-		IsConsoleOpen = !IsConsoleOpen;
+		Debug::IsOpenDebugWnd = !Debug::IsOpenDebugWnd;
+	}
+	if (key == GLFW_KEY_Y && action == GLFW_PRESS)
+	{
+		IgnoreInput = !IgnoreInput;
+		if (IgnoreInput)
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			Debug::Log("Input is closed!");
+		}
+		else
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			Debug::Log("Input is active!");
+		}
 	}
 }
 
@@ -46,6 +63,11 @@ void ProcessInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+	if (IgnoreInput)
+		return;
+	auto painter = static_cast<Painter*>(glfwGetWindowUserPointer(window));
+	if (painter != nullptr)
+		painter->HandleInput(window);
 }
 
 Painter* CreatePainter(const char* name)
@@ -85,7 +107,8 @@ void InitImGUI(GLFWwindow* window)
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGuiIO& io = ImGui::GetIO();
+	io.WantCaptureMouse = true;
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
@@ -110,18 +133,6 @@ void DiposeImGUI()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-}
-
-void DrawConsole()
-{
-	if (IsConsoleOpen)
-	{
-		ImGui::SetNextWindowSize(ImVec2(400, 200));
-		ImGui::SetNextWindowPos(ImVec2(0, 0));
-		ImGui::Begin("Console");
-		ImGui::Text("a New Console");
-		ImGui::End();
-	}
 }
 
 int main()
@@ -155,11 +166,11 @@ int main()
 	InitImGUI(window);
 
 	Camera::GetMainCamera();
-	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, OnMouseMove);
 	glfwSetScrollCallback(window, OnMouseScroll);
-	//glfwSetKeyCallback(window, OnKeyEvent);
+	glfwSetKeyCallback(window, OnKeyEvent);
 
 	//auto painter = CreatePainter("HelloTriangle");
 	//auto painter = CreatePainter("HelloShader");
@@ -178,7 +189,6 @@ int main()
 	{
 		glfwPollEvents();
 
-		ImGUI_Frame();
 
 		Time::GameTime = glfwGetTime();
 		if (Time::GameTime < NextUpdateTime)
@@ -186,19 +196,24 @@ int main()
 		NextUpdateTime = Time::GameTime + FRAME_INTETRVAL;
 		Time::deltaTime = Time::GameTime - LastGlobalTime;
 		LastGlobalTime = Time::GameTime;
+
+		//imgui
+		ImGUI_Frame();
+
 		//Input
 
 		ProcessInput(window);
-		painter->HandleInput(window);
 
 		//Render
-		DrawConsole();
 
-		ImGui::Render();
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		Debug::DrawLogWindow();
+
+
 		painter->OnRender();
+		ImGui::Render();
 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		//others
