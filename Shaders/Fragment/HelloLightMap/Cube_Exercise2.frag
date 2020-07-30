@@ -31,7 +31,7 @@ void main()
 {
 	//texColor
 	vec3 texDiffuseColor = vec3(texture(material.diffuse, TexCoords));
-	vec3 texSpecColor = vec3(texture(material.specular, TexCoords));
+	vec3 texSpecColor = vec3(1) - vec3(texture(material.specular, TexCoords));
 
     // Diffuse 
     vec3 norm = normalize(Normal);
@@ -39,7 +39,7 @@ void main()
     float diff_dot = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = light.diffuse * diff_dot * texDiffuseColor;
 	
-	    // Ambient
+	// Ambient
     vec3 ambient = light.ambient * texDiffuseColor;
 	
     // Specular
