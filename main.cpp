@@ -1,9 +1,7 @@
 /* LearnOpenGL 0kk470*/
 #pragma once
 
-#include "Camera.h"
-#include "Debug.h"
-#include "include/Leanring/HelloTriangle.h"
+#include "HelloTriangle.h"
 #include "HelloShader.h"
 #include "HelloTexture.h"
 #include "HelloTransform.h"
@@ -12,6 +10,7 @@
 #include "HelloLight.h"
 #include "HelloMaterial.h"
 #include "HelloLightMap.h"
+#include "HelloLightCasters.h"
 
 bool IsConsoleOpen = true;
 bool IgnoreInput = false;
@@ -110,6 +109,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new HelloLightMap();
 	}
+	else if (name == "HelloLightCasters")
+	{
+		return new HelloLightCasters();
+	}
 	return new Painter();
 }
 
@@ -191,6 +194,7 @@ int main()
 	//auto painter = CreatePainter("HelloLight");
 	//auto painter = CreatePainter("HelloMaterial");
 	auto painter = CreatePainter("HelloLightMap");
+	//auto painter = CreatePainter("HelloLightCasters");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);

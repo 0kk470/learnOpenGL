@@ -1,4 +1,4 @@
-#include "include/Leanring/HelloTriangle.h"
+#include "HelloTriangle.h"
 
 void HelloTriangle::CheckShaderCompileSuccess(GLuint shader)
 {

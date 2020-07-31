@@ -154,6 +154,7 @@
     <ClCompile Include="HelloTriangle.cpp" />
     <ClCompile Include="include\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="include\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="HelloLightCasters.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HelloShader.cpp" />
     <ClCompile Include="Resource.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="HelloMaterial.h" />
     <ClInclude Include="HelloTexture.h" />
     <ClInclude Include="HelloTransform.h" />
+    <ClInclude Include="HelloTriangle.h" />
     <ClInclude Include="include\glad.h" />
     <ClInclude Include="include\GL\glxew.h" />
     <ClInclude Include="include\GL\wglew.h" />
@@ -182,9 +184,9 @@
     <ClInclude Include="include\imgui\imgui_stdlib.h" />
     <ClInclude Include="include\imgui\imstb_textedit.h" />
     <ClInclude Include="include\khrplatform.h" />
-    <ClInclude Include="include\Leanring\HelloTriangle.h" />
     <ClInclude Include="HelloShader.h" />
     <ClInclude Include="include\SOIL.h" />
+    <ClInclude Include="HelloLightCasters.h" />
     <ClInclude Include="Painter.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader.h" />

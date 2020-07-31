@@ -40,6 +40,9 @@
     <Filter Include="9_HelloLightMap">
       <UniqueIdentifier>{8d5426e7-b782-40a8-808b-34e8abfa398f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="10_HelloLightCasters">
+      <UniqueIdentifier>{b04b40b4-b9f5-4177-9799-8ddb3af7d6e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -96,11 +99,11 @@
     <ClCompile Include="HelloLightMap.cpp">
       <Filter>9_HelloLightMap</Filter>
     </ClCompile>
+    <ClCompile Include="HelloLightCasters.cpp">
+      <Filter>10_HelloLightCasters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Leanring\HelloTriangle.h">
-      <Filter>1_HelloTrianger</Filter>
-    </ClInclude>
     <ClInclude Include="HelloShader.h">
       <Filter>2_HelloShader</Filter>
     </ClInclude>
@@ -117,9 +120,6 @@
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="include\GL\glxew.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="glheader.h">
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="include\SOIL.h">
@@ -179,6 +179,15 @@
     </ClInclude>
     <ClInclude Include="HelloLightMap.h">
       <Filter>9_HelloLightMap</Filter>
+    </ClInclude>
+    <ClInclude Include="glheader.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloTriangle.h">
+      <Filter>1_HelloTrianger</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloLightCasters.h">
+      <Filter>10_HelloLightCasters</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

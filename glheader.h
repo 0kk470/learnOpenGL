@@ -16,3 +16,4 @@
 #include "Resource.h"
 #include "Time.h"
 #include "Camera.h"
+#include "Debug.h"
