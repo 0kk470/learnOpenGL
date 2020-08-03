@@ -193,8 +193,8 @@ int main()
 	//auto painter = CreatePainter("HelloCamera");
 	//auto painter = CreatePainter("HelloLight");
 	//auto painter = CreatePainter("HelloMaterial");
-	auto painter = CreatePainter("HelloLightMap");
-	//auto painter = CreatePainter("HelloLightCasters");
+	//auto painter = CreatePainter("HelloLightMap");
+	auto painter = CreatePainter("HelloLightCasters");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);
