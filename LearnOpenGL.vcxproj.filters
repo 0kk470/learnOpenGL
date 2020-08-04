@@ -102,7 +102,9 @@
     <ClCompile Include="HelloLightCasters.cpp">
       <Filter>10_HelloLightCasters_And_11_MultiLights</Filter>
     </ClCompile>
-    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelloShader.h">
@@ -193,6 +195,8 @@
     <ClInclude Include="StringUtil.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Mouse.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

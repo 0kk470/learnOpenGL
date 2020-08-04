@@ -36,7 +36,7 @@ struct PointLight
 
     float quadratic = 0.07f;
 
-    bool isOn = true;
+    bool isOn = false;
 
     PointLight(float x, float y, float z)
     {
@@ -52,9 +52,9 @@ struct SpotLight
 
     float direction[3];
 
-    float cutOff = 12.5f;
+    float cutOff = 12;
 
-    float outerCutOff = 15.0f;
+    float outerCutOff = 15;
 
     float Ambient[3] = { 0, 0, 0 };
 

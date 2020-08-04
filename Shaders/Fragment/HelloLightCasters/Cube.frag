@@ -133,7 +133,7 @@ vec3 CaclSpotLight(SpotLight _spotLight)
 	
 	vec3 result = vec3(0,0,0);
 	
-	if(theta > _spotLight.cutOff && _spotLight.isOn)
+	if(_spotLight.isOn)
 	{
 		vec3 texDiffuseColor = vec3(texture(material.diffuse, TexCoords));
 		vec3 texSpecColor = vec3(texture(material.specular, TexCoords));
@@ -156,7 +156,7 @@ vec3 CaclSpotLight(SpotLight _spotLight)
 		float Distance = length(_spotLight.Position - FragPos);
 		float attenuation = 1.0f / (_spotLight.constant + _spotLight.linear * Distance + _spotLight.quadratic * Distance * Distance);
 		
-		result = ambient + (diffuse + specular) * intensity * attenuation;
+		result = (ambient + diffuse + specular) * intensity * attenuation;
 	}
 	return result;
 }

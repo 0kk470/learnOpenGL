@@ -144,8 +144,8 @@ void HelloLightCasters::Default_Update()
 	m_LightingObjShader->setVec3("spotLight.ambient", m_CameraSpotLight.Ambient[0], m_CameraSpotLight.Ambient[1], m_CameraSpotLight.Ambient[2]);
 	m_LightingObjShader->setVec3("spotLight.diffuse", m_CameraSpotLight.Diffuse[0], m_CameraSpotLight.Diffuse[1], m_CameraSpotLight.Diffuse[2]);
 	m_LightingObjShader->setVec3("spotLight.specular", m_CameraSpotLight.Specular[0], m_CameraSpotLight.Specular[1], m_CameraSpotLight.Specular[2]);
-	m_LightingObjShader->setFloat("spotLight.cutOff", glm::radians(m_CameraSpotLight.cutOff) );
-	m_LightingObjShader->setFloat("spotLight.outerCutOff", glm::radians(m_CameraSpotLight.outerCutOff) );
+	m_LightingObjShader->setFloat("spotLight.cutOff", glm::cos(glm::radians(m_CameraSpotLight.cutOff)) );
+	m_LightingObjShader->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(m_CameraSpotLight.outerCutOff)) );
 	m_LightingObjShader->setFloat("spotLight.constant", 1);
 	m_LightingObjShader->setFloat("spotLight.linear", m_CameraSpotLight.linear);
 	m_LightingObjShader->setFloat("spotLight.quadratic", m_CameraSpotLight.quadratic);
@@ -232,8 +232,8 @@ void HelloLightCasters::DrawLightParamWindow()
 	ImGui::DragFloat3("Spot Specular ", m_CameraSpotLight.Specular, 0.05f, 0, 1);
 	ImGui::DragFloat("Spot linear", &m_CameraSpotLight.linear, 0.005f, 0.001f, 1);
 	ImGui::DragFloat("Spot quadratic", &m_CameraSpotLight.quadratic, 0.005f, 0.001f, 1);
-	ImGui::DragFloat("Spot cutOff", &m_CameraSpotLight.cutOff, 1, 5, 89);
-	ImGui::DragFloat("Spot outerCutOff", &m_CameraSpotLight.outerCutOff, 1, 5, 89);
+	ImGui::DragFloat("Spot cutOff", &m_CameraSpotLight.cutOff, 1, 5, m_CameraSpotLight.outerCutOff);
+	ImGui::DragFloat("Spot outerCutOff", &m_CameraSpotLight.outerCutOff, 1, m_CameraSpotLight.cutOff, 45);
 
 	ImGui::End();
 }
