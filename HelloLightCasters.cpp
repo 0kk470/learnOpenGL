@@ -107,46 +107,46 @@ void HelloLightCasters::Default_Update()
 
 	DrawLightParamWindow();
 
-	auto mainCamera = Camera::GetMainCamera();
-	auto lightDir = m_DirectionLightData.lightDirection;
-	auto light_ambient = m_DirectionLightData.light_ambient;
-	auto light_diffuse = m_DirectionLightData.light_diffuse;
-	auto light_specular = m_DirectionLightData.light_specular;
-	m_LightingObjShader->Use();
-	m_LightingObjShader->setVec3("light.direction", lightDir[0], lightDir[1], lightDir[2]);
-	m_LightingObjShader->setVec3("viewPos", mainCamera->Position);
+	//auto mainCamera = Camera::GetMainCamera();
+	//auto lightDir = m_DirLight.lightDirection;
+	//auto light_ambient = m_DirLight.light_ambient;
+	//auto light_diffuse = m_DirLight.light_diffuse;
+	//auto light_specular = m_DirLight.light_specular;
+	//m_LightingObjShader->Use();
+	//m_LightingObjShader->setVec3("light.direction", lightDir[0], lightDir[1], lightDir[2]);
+	//m_LightingObjShader->setVec3("viewPos", mainCamera->Position);
 
-	m_LightingObjShader->setVec3("light.ambient", light_ambient[0], light_ambient[1], light_ambient[2]);
-	m_LightingObjShader->setVec3("light.diffuse", light_diffuse[0], light_diffuse[1], light_diffuse[2]);
-	m_LightingObjShader->setVec3("light.specular", light_specular[0], light_specular[1], light_specular[2]);
+	//m_LightingObjShader->setVec3("light.ambient", light_ambient[0], light_ambient[1], light_ambient[2]);
+	//m_LightingObjShader->setVec3("light.diffuse", light_diffuse[0], light_diffuse[1], light_diffuse[2]);
+	//m_LightingObjShader->setVec3("light.specular", light_specular[0], light_specular[1], light_specular[2]);
 
-	m_LightingObjShader->setInt("material.diffuse", 0);
-	m_LightingObjShader->setInt("material.specular", 1);
-	m_LightingObjShader->setFloat("material.shininess", m_DirectionLightData.shininess);
+	//m_LightingObjShader->setInt("material.diffuse", 0);
+	//m_LightingObjShader->setInt("material.specular", 1);
+	//m_LightingObjShader->setFloat("material.shininess", shininess);
 
-	glm::mat4 view = mainCamera->GetViewMatrix();
-	auto projection = glm::perspective(mainCamera->Zoom, 800.0f / 600.0f, 0.1f, 100.0f);
+	//glm::mat4 view = mainCamera->GetViewMatrix();
+	//auto projection = glm::perspective(mainCamera->Zoom, SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
 
-	m_LightingObjShader->setMat4("view", view);
-	m_LightingObjShader->setMat4("projection", projection);
+	//m_LightingObjShader->setMat4("view", view);
+	//m_LightingObjShader->setMat4("projection", projection);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, diffuseTex);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, SpecularTex);
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, diffuseTex);
+	//glActiveTexture(GL_TEXTURE1);
+	//glBindTexture(GL_TEXTURE_2D, SpecularTex);
 
-	glBindVertexArray(containerVAO);
+	//glBindVertexArray(containerVAO);
 
-	for(int i = 0; i < cubePositions.size(); ++i)
-	{
-		glm::mat4 TempModel(1);
-		TempModel = glm::translate(TempModel, cubePositions[i]);
-		TempModel = glm::rotate(TempModel, glm::radians(i * 20.0f), glm::vec3(1.0f, 0.3f, 0.5f));
-		m_LightingObjShader->setMat4("model", TempModel);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
+	//for(int i = 0; i < cubePositions.size(); ++i)
+	//{
+	//	glm::mat4 TempModel(1);
+	//	TempModel = glm::translate(TempModel, cubePositions[i]);
+	//	TempModel = glm::rotate(TempModel, glm::radians(i * 20.0f), glm::vec3(1.0f, 0.3f, 0.5f));
+	//	m_LightingObjShader->setMat4("model", TempModel);
+	//	glDrawArrays(GL_TRIANGLES, 0, 36);
+	//}
 
-	glBindVertexArray(0);
+	//glBindVertexArray(0);
 
 	//m_LampShader->Use();
 
@@ -168,13 +168,45 @@ void HelloLightCasters::DrawLightParamWindow()
 {
 	ImGui::SetNextWindowPos(ImVec2(800, 600), 0, ImVec2(1, 1));
 	ImGui::Begin("Light Modifier", 0, ImGuiWindowFlags_AlwaysAutoResize);
+
 	ImGui::BulletText("Cube Attribute");
-	ImGui::SliderInt("shininess", &m_DirectionLightData.shininess, 0, 256);
-	ImGui::BulletText("DirectionLightLight Attribute");
-	ImGui::DragFloat3("Direction ", m_DirectionLightData.lightDirection, 0.05f, -1, 1);
-	ImGui::DragFloat3("Ambient ", m_DirectionLightData.light_ambient, 0.05f, 0, 1);
-	ImGui::DragFloat3("Diffuse ", m_DirectionLightData.light_diffuse, 0.05f, 0, 1);
-	ImGui::DragFloat3("Specular ", m_DirectionLightData.light_specular, 0.05f, 0, 1);
+	ImGui::SliderInt("shininess", &shininess, 0, 256);
+
+	ImGui::BulletText("DirectionLight Attribute");
+	ImGui::DragFloat3("DirLight Direction ", m_DirLight.lightDirection, 0.05f, -1, 1);
+	ImGui::DragFloat3("DirLight Ambient ", m_DirLight.light_ambient, 0.05f, 0, 1);
+	ImGui::DragFloat3("DirLight Diffuse ", m_DirLight.light_diffuse, 0.05f, 0, 1);
+	ImGui::DragFloat3("DirLight Specular ", m_DirLight.light_specular, 0.05f, 0, 1);
+
+	ImGui::BulletText("PointLight Attribute");
+	for (int i = 0; i < m_PointLights.size(); ++i)
+	{
+		auto pLight = m_PointLights[i];
+		ImGui::Text("PointLight %d", i + 1);
+		ImGui::PushID(i);
+		ImGui::Checkbox("IsOn", &pLight->isOn);
+		if (pLight->isOn)
+		{
+			ImGui::DragFloat3("Position ", pLight->Position, 0.05f);
+			ImGui::DragFloat3("Ambient ", pLight->Ambient, 0.05f, 0, 1);
+			ImGui::DragFloat3("Diffuse ", pLight->Diffuse, 0.05f, 0, 1);
+			ImGui::DragFloat3("Specular ", pLight->Specular, 0.05f, 0, 1);
+			ImGui::DragFloat("linear", &pLight->linear, 0.005f, 0.001f, 1);
+			ImGui::DragFloat("quadratic", &pLight->quadratic, 0.005f, 0.001f, 1);
+		}
+		ImGui::PopID();
+	}
+
+	ImGui::BulletText("Camera SpotLight Attribute");
+	ImGui::DragFloat3("Spot Direction ", m_CameraSpotLigt.Position, 0.05f);
+	ImGui::DragFloat3("Spot Ambient ", m_CameraSpotLigt.Ambient, 0.05f, 0, 1);
+	ImGui::DragFloat3("Spot Diffuse ", m_CameraSpotLigt.Diffuse, 0.05f, 0, 1);
+	ImGui::DragFloat3("Spot Specular ", m_CameraSpotLigt.Specular, 0.05f, 0, 1);
+	ImGui::DragFloat("Spot linear", &m_CameraSpotLigt.linear, 0.005f, 0.001f, 1);
+	ImGui::DragFloat("Spot quadratic", &m_CameraSpotLigt.quadratic, 0.005f, 0.001f, 1);
+	ImGui::DragFloat("Spot cutOff", &m_CameraSpotLigt.cutOff, 1, 5, 89);
+	ImGui::DragFloat("Spot outerCutOff", &m_CameraSpotLigt.outerCutOff, 1, 5, 89);
+
 	ImGui::End();
 }
 
@@ -185,37 +217,4 @@ void HelloLightCasters::Default_Init()
 
 	diffuseTex = Resource::LoadTexture("./resources/HelloLightMap/WoodenChest.png");
 	SpecularTex = Resource::LoadTexture("./resources/HelloLightMap/WoodenChest_specular.png");
-}
-
-void HelloLightCasters::Exercise2_Init()
-{
-	m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLightCasters/Cube.vertex", "./Shaders/Fragment/HelloLightCasters/Cube_Exercise2.frag");
-	m_LampShader = new Shader("./Shaders/Vertex/HelloLightCasters/Light.vertex", "./Shaders/Fragment/HelloLightCasters/Light.frag");
-
-	diffuseTex = Resource::LoadTexture("./resources/HelloLightMap/WoodenChest.png");
-	SpecularTex = Resource::LoadTexture("./resources/HelloLightMap/WoodenChest_specular.png");
-}
-
-void HelloLightCasters::Exercise3_Init()
-{
-	m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLightCasters/Cube.vertex", "./Shaders/Fragment/HelloLightCasters/Cube.frag");
-	m_LampShader = new Shader("./Shaders/Vertex/HelloLightCasters/Light.vertex", "./Shaders/Fragment/HelloLightCasters/Light.frag");
-
-	diffuseTex = Resource::LoadTexture("./resources/HelloLightMap/WoodenChest.png");
-	SpecularTex = Resource::LoadTexture("./resources/HelloLightMap/lighting_maps_specular_color.png");
-}
-
-void HelloLightCasters::Exercise4_Init()
-{
-	m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLightCasters/Cube.vertex", "./Shaders/Fragment/HelloLightCasters/Cube_Exercise4.frag");
-	m_LampShader = new Shader("./Shaders/Vertex/HelloLightCasters/Light.vertex", "./Shaders/Fragment/HelloLightCasters/Light.frag");
-
-	diffuseTex = Resource::LoadTexture("./resources/HelloLightMap/WoodenChest.png");
-	SpecularTex = Resource::LoadTexture("./resources/HelloLightMap/lighting_maps_specular_color.png");
-	EmissionMapTex = Resource::LoadTexture("./resources/HelloLightMap/matrix.jpg");
-}
-
-void HelloLightCasters::Exercise4_Update()
-{
-
 }

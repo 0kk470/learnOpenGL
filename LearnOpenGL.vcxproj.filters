@@ -40,7 +40,7 @@
     <Filter Include="9_HelloLightMap">
       <UniqueIdentifier>{8d5426e7-b782-40a8-808b-34e8abfa398f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="10_HelloLightCasters">
+    <Filter Include="10_HelloLightCasters_And_11_MultiLights">
       <UniqueIdentifier>{b04b40b4-b9f5-4177-9799-8ddb3af7d6e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -100,7 +100,7 @@
       <Filter>9_HelloLightMap</Filter>
     </ClCompile>
     <ClCompile Include="HelloLightCasters.cpp">
-      <Filter>10_HelloLightCasters</Filter>
+      <Filter>10_HelloLightCasters_And_11_MultiLights</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +187,7 @@
       <Filter>1_HelloTrianger</Filter>
     </ClInclude>
     <ClInclude Include="HelloLightCasters.h">
-      <Filter>10_HelloLightCasters</Filter>
+      <Filter>10_HelloLightCasters_And_11_MultiLights</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
