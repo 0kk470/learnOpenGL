@@ -131,7 +131,7 @@ vec3 CaclSpotLight(SpotLight _spotLight)
 	float epsilon = _spotLight.cutOff - _spotLight.outerCutOff;
 	float intensity = clamp((theta - _spotLight.outerCutOff) / epsilon, 0.0, 1.0);
 	
-	vec3 result = _spotLight.ambient * texture(material.diffuse, TexCoords).rgb;
+	vec3 result = vec3(0,0,0);
 	
 	if(theta > _spotLight.cutOff && _spotLight.isOn)
 	{

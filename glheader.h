@@ -17,3 +17,4 @@
 #include "Time.h"
 #include "Camera.h"
 #include "Debug.h"
+#include "StringUtil.h"

@@ -190,6 +190,7 @@
     <ClInclude Include="Painter.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="StringUtil.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

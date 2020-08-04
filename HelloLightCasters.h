@@ -26,7 +26,7 @@ struct PointLight
 {
     float Position[3] = { 0.0f, 0.0f, 1.0f };
 
-    float Ambient[3] = { 0.2f, 0.2f, 0.2f };
+    float Ambient[3] = { 1, 1, 1 };
 
     float Diffuse[3] = { 0.5f, 0.5f, 0.5f };
 
@@ -52,21 +52,21 @@ struct SpotLight
 
     float direction[3];
 
-    float cutOff;
+    float cutOff = 12.5f;
 
-    float outerCutOff;
+    float outerCutOff = 15.0f;
 
-    float Ambient[3] = { 0.2f, 0.2f, 0.2f };
+    float Ambient[3] = { 0, 0, 0 };
 
-    float Diffuse[3] = { 0.5f, 0.5f, 0.5f };
+    float Diffuse[3] = { 1, 1, 1};
 
     float Specular[3] = { 1.0f, 1.0f, 1.0f };
 
-    float linear = 0.14f;
+    float linear = 0.09f;
 
-    float quadratic = 0.07f;
+    float quadratic = 0.032f;
 
-    bool isOn;
+    bool isOn = true;
 };
 
 class HelloLightCasters : public Painter
@@ -170,7 +170,7 @@ private:
         new PointLight(0.0f,  0.0f, -3.0f)
     };
 
-    SpotLight m_CameraSpotLigt;
+    SpotLight m_CameraSpotLight;
 
     GLfloat lastX, lastY;
 

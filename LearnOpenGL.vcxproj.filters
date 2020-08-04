@@ -189,5 +189,8 @@
     <ClInclude Include="HelloLightCasters.h">
       <Filter>10_HelloLightCasters_And_11_MultiLights</Filter>
     </ClInclude>
+    <ClInclude Include="StringUtil.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

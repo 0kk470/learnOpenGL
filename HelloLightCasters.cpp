@@ -107,61 +107,89 @@ void HelloLightCasters::Default_Update()
 
 	DrawLightParamWindow();
 
-	//auto mainCamera = Camera::GetMainCamera();
-	//auto lightDir = m_DirLight.lightDirection;
-	//auto light_ambient = m_DirLight.light_ambient;
-	//auto light_diffuse = m_DirLight.light_diffuse;
-	//auto light_specular = m_DirLight.light_specular;
-	//m_LightingObjShader->Use();
-	//m_LightingObjShader->setVec3("light.direction", lightDir[0], lightDir[1], lightDir[2]);
-	//m_LightingObjShader->setVec3("viewPos", mainCamera->Position);
+	auto mainCamera = Camera::GetMainCamera();
+	m_LightingObjShader->Use();
+	m_LightingObjShader->setVec3("viewPos", mainCamera->Position);
+	m_LightingObjShader->setInt("material.diffuse", 0);
+	m_LightingObjShader->setInt("material.specular", 1);
+	m_LightingObjShader->setFloat("material.shininess", shininess);
 
-	//m_LightingObjShader->setVec3("light.ambient", light_ambient[0], light_ambient[1], light_ambient[2]);
-	//m_LightingObjShader->setVec3("light.diffuse", light_diffuse[0], light_diffuse[1], light_diffuse[2]);
-	//m_LightingObjShader->setVec3("light.specular", light_specular[0], light_specular[1], light_specular[2]);
+	glm::mat4 view = mainCamera->GetViewMatrix();
+	auto projection = glm::perspective(mainCamera->Zoom, SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
 
-	//m_LightingObjShader->setInt("material.diffuse", 0);
-	//m_LightingObjShader->setInt("material.specular", 1);
-	//m_LightingObjShader->setFloat("material.shininess", shininess);
+	m_LightingObjShader->setMat4("view", view);
+	m_LightingObjShader->setMat4("projection", projection);
 
-	//glm::mat4 view = mainCamera->GetViewMatrix();
-	//auto projection = glm::perspective(mainCamera->Zoom, SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
+	//Direction Light
+	m_LightingObjShader->setVec3("dirLight.direction", m_DirLight.lightDirection[0], m_DirLight.lightDirection[1], m_DirLight.lightDirection[2]);
+	m_LightingObjShader->setVec3("dirLight.ambient", m_DirLight.light_ambient[0], m_DirLight.light_ambient[1], m_DirLight.light_ambient[2]);
+	m_LightingObjShader->setVec3("dirLight.diffuse", m_DirLight.light_diffuse[0], m_DirLight.light_diffuse[1], m_DirLight.light_diffuse[2]);
+	m_LightingObjShader->setVec3("dirLight.specular", m_DirLight.light_specular[0], m_DirLight.light_specular[1], m_DirLight.light_specular[2]);
+	m_LightingObjShader->setBool("dirLight.isOn", m_DirLight.IsOn);
 
-	//m_LightingObjShader->setMat4("view", view);
-	//m_LightingObjShader->setMat4("projection", projection);
+	//Point Light
+	for (int i = 0; i < MAX_POINT_LIGHT_NUM; ++i)
+	{
+		m_LightingObjShader->setVec3( StringUtil::Format("pointlights[%d].Position", i), m_PointLights[i]->Position[0], m_PointLights[i]->Position[1], m_PointLights[i]->Position[2]);
+		m_LightingObjShader->setVec3( StringUtil::Format("pointlights[%d].ambient", i), m_PointLights[i]->Ambient[0], m_PointLights[i]->Ambient[1], m_PointLights[i]->Ambient[2]);
+		m_LightingObjShader->setVec3( StringUtil::Format("pointlights[%d].diffuse", i), m_PointLights[i]->Diffuse[0], m_PointLights[i]->Diffuse[1], m_PointLights[i]->Diffuse[2]);
+		m_LightingObjShader->setVec3( StringUtil::Format("pointlights[%d].specular", i), m_PointLights[i]->Specular[0], m_PointLights[i]->Specular[1], m_PointLights[i]->Specular[2]);
+		m_LightingObjShader->setFloat(StringUtil::Format("pointlights[%d].constant", i), 1);
+		m_LightingObjShader->setFloat(StringUtil::Format("pointlights[%d].linear", i), m_PointLights[i]->linear);
+		m_LightingObjShader->setFloat(StringUtil::Format("pointlights[%d].quadratic", i), m_PointLights[i]->quadratic);
+		m_LightingObjShader->setBool( StringUtil::Format("pointlights[%d].isOn", i), m_PointLights[i]->isOn);
+	}
 
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, diffuseTex);
-	//glActiveTexture(GL_TEXTURE1);
-	//glBindTexture(GL_TEXTURE_2D, SpecularTex);
+	//Spot Light
+	m_LightingObjShader->setVec3("spotLight.Position", mainCamera->Position);
+	m_LightingObjShader->setVec3("spotLight.direction", mainCamera->Front);
+	m_LightingObjShader->setVec3("spotLight.ambient", m_CameraSpotLight.Ambient[0], m_CameraSpotLight.Ambient[1], m_CameraSpotLight.Ambient[2]);
+	m_LightingObjShader->setVec3("spotLight.diffuse", m_CameraSpotLight.Diffuse[0], m_CameraSpotLight.Diffuse[1], m_CameraSpotLight.Diffuse[2]);
+	m_LightingObjShader->setVec3("spotLight.specular", m_CameraSpotLight.Specular[0], m_CameraSpotLight.Specular[1], m_CameraSpotLight.Specular[2]);
+	m_LightingObjShader->setFloat("spotLight.cutOff", glm::radians(m_CameraSpotLight.cutOff) );
+	m_LightingObjShader->setFloat("spotLight.outerCutOff", glm::radians(m_CameraSpotLight.outerCutOff) );
+	m_LightingObjShader->setFloat("spotLight.constant", 1);
+	m_LightingObjShader->setFloat("spotLight.linear", m_CameraSpotLight.linear);
+	m_LightingObjShader->setFloat("spotLight.quadratic", m_CameraSpotLight.quadratic);
+	m_LightingObjShader->setBool("spotLight.isOn", m_CameraSpotLight.isOn);
 
-	//glBindVertexArray(containerVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, diffuseTex);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, SpecularTex);
 
-	//for(int i = 0; i < cubePositions.size(); ++i)
-	//{
-	//	glm::mat4 TempModel(1);
-	//	TempModel = glm::translate(TempModel, cubePositions[i]);
-	//	TempModel = glm::rotate(TempModel, glm::radians(i * 20.0f), glm::vec3(1.0f, 0.3f, 0.5f));
-	//	m_LightingObjShader->setMat4("model", TempModel);
-	//	glDrawArrays(GL_TRIANGLES, 0, 36);
-	//}
+	glBindVertexArray(containerVAO);
 
-	//glBindVertexArray(0);
+	for(int i = 0; i < cubePositions.size(); ++i)
+	{
+		glm::mat4 TempModel(1);
+		TempModel = glm::translate(TempModel, cubePositions[i]);
+		TempModel = glm::rotate(TempModel, glm::radians(i * 20.0f), glm::vec3(1.0f, 0.3f, 0.5f));
+		m_LightingObjShader->setMat4("model", TempModel);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
 
-	//m_LampShader->Use();
+	glBindVertexArray(0);
 
-	//m_LampShader->setMat4("projection", projection);
-	//m_LampShader->setMat4("view", view);
-	//glm::mat4 model(1);
-	//auto lightPos = m_DirectionLightData.lightPos;
-	//model = glm::translate(model, glm::vec3(lightPos[0], lightPos[1], lightPos[2]));
-	//model = glm::scale(model, glm::vec3(0.2f));
+	m_LampShader->Use();
 
-	//m_LampShader->setMat4("model", model);
-	//m_LampShader->setVec3("lightColor", lightColor[0], lightColor[1], lightColor[2]);
-	//glBindVertexArray(lightVAO);
-	//glDrawArrays(GL_TRIANGLES, 0, 36);
-	//glBindVertexArray(0);
+	m_LampShader->setMat4("projection", projection);
+	m_LampShader->setMat4("view", view);
+	glBindVertexArray(lightVAO);
+	for (int i = 0; i < MAX_POINT_LIGHT_NUM; ++i)
+	{
+		glm::mat4 model(1);
+		model = glm::translate(model, glm::vec3(m_PointLights[i]->Position[0], m_PointLights[i]->Position[1], m_PointLights[i]->Position[2]));
+		model = glm::scale(model, glm::vec3(0.2f));
+
+		m_LampShader->setMat4("model", model);
+		if (m_PointLights[i]->isOn)
+			m_LampShader->setVec3("lightColor", m_PointLights[i]->Ambient[0], m_PointLights[i]->Ambient[1], m_PointLights[i]->Ambient[2]);
+		else
+			m_LampShader->setVec3("lightColor", glm::vec3(0));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+	glBindVertexArray(0);
 }
 
 void HelloLightCasters::DrawLightParamWindow()
@@ -173,6 +201,7 @@ void HelloLightCasters::DrawLightParamWindow()
 	ImGui::SliderInt("shininess", &shininess, 0, 256);
 
 	ImGui::BulletText("DirectionLight Attribute");
+	ImGui::Checkbox("DirLight IsOn ", &m_DirLight.IsOn);
 	ImGui::DragFloat3("DirLight Direction ", m_DirLight.lightDirection, 0.05f, -1, 1);
 	ImGui::DragFloat3("DirLight Ambient ", m_DirLight.light_ambient, 0.05f, 0, 1);
 	ImGui::DragFloat3("DirLight Diffuse ", m_DirLight.light_diffuse, 0.05f, 0, 1);
@@ -198,14 +227,15 @@ void HelloLightCasters::DrawLightParamWindow()
 	}
 
 	ImGui::BulletText("Camera SpotLight Attribute");
-	ImGui::DragFloat3("Spot Direction ", m_CameraSpotLigt.Position, 0.05f);
-	ImGui::DragFloat3("Spot Ambient ", m_CameraSpotLigt.Ambient, 0.05f, 0, 1);
-	ImGui::DragFloat3("Spot Diffuse ", m_CameraSpotLigt.Diffuse, 0.05f, 0, 1);
-	ImGui::DragFloat3("Spot Specular ", m_CameraSpotLigt.Specular, 0.05f, 0, 1);
-	ImGui::DragFloat("Spot linear", &m_CameraSpotLigt.linear, 0.005f, 0.001f, 1);
-	ImGui::DragFloat("Spot quadratic", &m_CameraSpotLigt.quadratic, 0.005f, 0.001f, 1);
-	ImGui::DragFloat("Spot cutOff", &m_CameraSpotLigt.cutOff, 1, 5, 89);
-	ImGui::DragFloat("Spot outerCutOff", &m_CameraSpotLigt.outerCutOff, 1, 5, 89);
+	ImGui::Checkbox("Spot IsOn ", &m_CameraSpotLight.isOn);
+	//ImGui::DragFloat3("Spot Direction ", m_CameraSpotLight.direction, 0.05f, -1, 1);
+	ImGui::DragFloat3("Spot Ambient ", m_CameraSpotLight.Ambient, 0.05f, 0, 1);
+	ImGui::DragFloat3("Spot Diffuse ", m_CameraSpotLight.Diffuse, 0.05f, 0, 1);
+	ImGui::DragFloat3("Spot Specular ", m_CameraSpotLight.Specular, 0.05f, 0, 1);
+	ImGui::DragFloat("Spot linear", &m_CameraSpotLight.linear, 0.005f, 0.001f, 1);
+	ImGui::DragFloat("Spot quadratic", &m_CameraSpotLight.quadratic, 0.005f, 0.001f, 1);
+	ImGui::DragFloat("Spot cutOff", &m_CameraSpotLight.cutOff, 1, 5, 89);
+	ImGui::DragFloat("Spot outerCutOff", &m_CameraSpotLight.outerCutOff, 1, 5, 89);
 
 	ImGui::End();
 }
