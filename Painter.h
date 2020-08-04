@@ -19,8 +19,6 @@ public:
     virtual void  OnMouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset) {}
 
 	virtual void OnDeInit() {}
-
-
 };
 
 

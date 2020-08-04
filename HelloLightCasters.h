@@ -158,7 +158,6 @@ private:
 	    glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-    bool firstMouse = true;
 
     DirectionLight m_DirLight;
 
@@ -171,8 +170,6 @@ private:
     };
 
     SpotLight m_CameraSpotLight;
-
-    GLfloat lastX, lastY;
 
     int shininess = 32.0f;
 

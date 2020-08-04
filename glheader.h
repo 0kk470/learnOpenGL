@@ -18,3 +18,4 @@
 #include "Camera.h"
 #include "Debug.h"
 #include "StringUtil.h"
+#include "Mouse.h"

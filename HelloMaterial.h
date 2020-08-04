@@ -74,9 +74,6 @@ private:
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     };
 
-    bool firstMouse = true;
-
-    GLfloat lastX, lastY;
 
     float lightColor[3] = { 1.0f, 1.0f, 1.0f };
 

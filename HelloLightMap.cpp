@@ -68,18 +68,16 @@ void HelloLightMap::HandleInput(GLFWwindow* wnd)
 
 void HelloLightMap::OnMouseMoveCallback(GLFWwindow* window, double xpos, double ypos)
 {
-	if (firstMouse)
+	if (Mouse::IsFisrtMove())
 	{
-		lastX = xpos;
-		lastY = ypos;
-		firstMouse = false;
+		Mouse::SetLastXY(xpos, ypos);
+		Mouse::SetFirstMove(false);
 	}
 
-	GLfloat xoffset = xpos - lastX;
-	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+	GLfloat xoffset = xpos - Mouse::GetLastX();
+	GLfloat yoffset = Mouse::GetLastY() - ypos;  // Reversed since y-coordinates go from bottom to left
 
-	lastX = xpos;
-	lastY = ypos;
+	Mouse::SetLastXY(xpos, ypos);
 
 	Camera::GetMainCamera()->ProcessMouseMovement(xoffset, yoffset);
 }

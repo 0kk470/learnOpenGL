@@ -44,12 +44,13 @@ void OnKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
 		IgnoreInput = !IgnoreInput;
 		if (IgnoreInput)
 		{
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);;
 			Debug::Log("Input is closed!");
 		}
 		else
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			Mouse::SetFirstMove(true);
 			Debug::Log("Input is active!");
 		}
 	}

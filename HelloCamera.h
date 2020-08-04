@@ -88,9 +88,5 @@ private:
         glm::vec3(1.5f,  0.2f, -1.5f),
         glm::vec3(-1.3f,  1.0f, -1.5f)
     };
-
-    bool firstMouse = true;
-
-    GLfloat lastX, lastY;
 };
 
