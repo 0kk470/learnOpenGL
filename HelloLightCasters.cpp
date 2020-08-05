@@ -6,12 +6,6 @@ void HelloLightCasters::OnInit()
 
 	Default_Init();
 
-	//Exercise2_Init();
-
-	//Exercise3_Init();
-
-	//Exercise4_Init();
-
 	glGenVertexArrays(1, &containerVAO);
 	glGenBuffers(1, &VBO);
 
@@ -37,7 +31,6 @@ void HelloLightCasters::OnInit()
 void HelloLightCasters::OnRender()
 {
 	Default_Update();
-	//Exercise4_Update();
 }
 
 void HelloLightCasters::OnWindowAttach(GLFWwindow* wnd)
