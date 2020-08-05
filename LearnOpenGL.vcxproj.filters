@@ -46,6 +46,9 @@
     <Filter Include="lib\assimp">
       <UniqueIdentifier>{75ca071d-4f09-41d8-bbeb-05cc5c45c30e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="12_Mesh">
+      <UniqueIdentifier>{4b80d85b-704c-40f8-961d-59db6514584d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
