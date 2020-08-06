@@ -111,6 +111,9 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>12_Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelloShader.h">
@@ -422,6 +425,9 @@
     </ClInclude>
     <ClInclude Include="include\assimp\aabb.h">
       <Filter>lib\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>12_Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

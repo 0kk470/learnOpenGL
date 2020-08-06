@@ -157,6 +157,7 @@
     <ClCompile Include="HelloLightCasters.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HelloShader.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="HelloShader.h" />
     <ClInclude Include="include\SOIL.h" />
     <ClInclude Include="HelloLightCasters.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Painter.h" />
     <ClInclude Include="Resource.h" />
