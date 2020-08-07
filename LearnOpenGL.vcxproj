@@ -155,9 +155,12 @@
     <ClCompile Include="include\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="include\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="HelloLightCasters.cpp" />
+    <ClCompile Include="include\stb_image\stb_image.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HelloShader.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelPainter.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -260,9 +263,11 @@
     <ClInclude Include="include\imgui\imstb_textedit.h" />
     <ClInclude Include="include\khrplatform.h" />
     <ClInclude Include="HelloShader.h" />
-    <ClInclude Include="include\SOIL.h" />
     <ClInclude Include="HelloLightCasters.h" />
+    <ClInclude Include="include\stb_image\stb_image.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelPainter.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Painter.h" />
     <ClInclude Include="Resource.h" />

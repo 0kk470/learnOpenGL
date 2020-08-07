@@ -11,6 +11,7 @@
 #include "HelloMaterial.h"
 #include "HelloLightMap.h"
 #include "HelloLightCasters.h"
+#include "ModelPainter.h"
 
 bool IsConsoleOpen = true;
 bool IgnoreInput = false;
@@ -114,6 +115,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new HelloLightCasters();
 	}
+	else if (name == "ModelPainter")
+	{
+		return new ModelPainter();
+	}
 	return new Painter();
 }
 
@@ -195,7 +200,8 @@ int main()
 	//auto painter = CreatePainter("HelloLight");
 	//auto painter = CreatePainter("HelloMaterial");
 	//auto painter = CreatePainter("HelloLightMap");
-	auto painter = CreatePainter("HelloLightCasters");
+	//auto painter = CreatePainter("HelloLightCasters");
+	auto painter = CreatePainter("ModelPainter");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);

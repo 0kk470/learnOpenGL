@@ -1,6 +1,6 @@
 #pragma once
 #include "glheader.h"
-#include "SOIL.h"
+#include "stb_image/stb_image.h"
 
 
 class Resource

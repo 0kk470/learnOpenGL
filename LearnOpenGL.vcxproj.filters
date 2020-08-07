@@ -49,6 +49,12 @@
     <Filter Include="12_Mesh">
       <UniqueIdentifier>{4b80d85b-704c-40f8-961d-59db6514584d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="13_Model">
+      <UniqueIdentifier>{a6695adb-8455-4d8c-9fe1-8fcc7011372d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\stb_image">
+      <UniqueIdentifier>{1a0dc422-6439-4f39-b825-6d7c05cc9632}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -114,6 +120,15 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>12_Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>13_Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelPainter.cpp">
+      <Filter>13_Model</Filter>
+    </ClCompile>
+    <ClCompile Include="include\stb_image\stb_image.cpp">
+      <Filter>lib\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelloShader.h">
@@ -132,9 +147,6 @@
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="include\GL\glxew.h">
-      <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SOIL.h">
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="HelloTexture.h">
@@ -428,6 +440,15 @@
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>12_Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>13_Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelPainter.h">
+      <Filter>13_Model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stb_image\stb_image.h">
+      <Filter>lib\stb_image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

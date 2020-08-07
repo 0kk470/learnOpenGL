@@ -1,5 +1,6 @@
 #pragma once
 #include "glheader.h"
+#include <assimp/types.h>
 
 using std::vector;
 using std::string;
@@ -9,17 +10,16 @@ struct Vertex
 	glm::vec3 Position;
 	glm::vec3 Normal;
 	glm::vec2 TexCoords;
+	glm::vec3 Tangent;
+	glm::vec3 Bitangent;
 };
 
 struct Texture
 {
 	GLuint id;
 	std::string type;
+	aiString Path;
 };
-
-
-const char* DIFFUSE_TEX_NAME = "texture_diffuse";
-const char* SPECULAR_TEX_NAME = "texture_specular";
 
 class Mesh
 {

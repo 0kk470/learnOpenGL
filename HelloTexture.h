@@ -1,6 +1,5 @@
 #pragma once
 #include "Painter.h"
-#include "SOIL.h"
 #include "Resource.h"
 
 class HelloTexture :public Painter
