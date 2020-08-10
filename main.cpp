@@ -12,6 +12,7 @@
 #include "HelloLightMap.h"
 #include "HelloLightCasters.h"
 #include "ModelPainter.h"
+#include "DepthTest.h"
 
 bool IsConsoleOpen = true;
 bool IgnoreInput = false;
@@ -119,6 +120,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new ModelPainter();
 	}
+	else if (name == "DepthTest")
+	{
+		return new DepthTest();
+	}
 	return new Painter();
 }
 
@@ -201,7 +206,8 @@ int main()
 	//auto painter = CreatePainter("HelloMaterial");
 	//auto painter = CreatePainter("HelloLightMap");
 	//auto painter = CreatePainter("HelloLightCasters");
-	auto painter = CreatePainter("ModelPainter");
+	//auto painter = CreatePainter("ModelPainter");
+	auto painter = CreatePainter("DepthTest");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);

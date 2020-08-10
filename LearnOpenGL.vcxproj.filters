@@ -55,6 +55,9 @@
     <Filter Include="lib\stb_image">
       <UniqueIdentifier>{1a0dc422-6439-4f39-b825-6d7c05cc9632}</UniqueIdentifier>
     </Filter>
+    <Filter Include="14_DepthTest">
+      <UniqueIdentifier>{4d059188-617d-4c63-a1eb-5fd7416e55fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="include\stb_image\stb_image.cpp">
       <Filter>lib\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthTest.cpp">
+      <Filter>14_DepthTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,6 +455,9 @@
     </ClInclude>
     <ClInclude Include="include\stb_image\stb_image.h">
       <Filter>lib\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthTest.h">
+      <Filter>14_DepthTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
