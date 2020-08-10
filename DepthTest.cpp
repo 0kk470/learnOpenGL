@@ -36,6 +36,9 @@ void DepthTest::OnInit()
 	floorTexture = Resource::LoadTexture("./resources/DepthTest/metal.png");
 
 	m_DepthShader = new Shader("./Shaders/Vertex/DepthTest/DepthTest.vertex", "./Shaders/Fragment/DepthTest/DepthTest.frag");
+
+	//Linear DepthTest
+	//m_DepthShader = new Shader("./Shaders/Vertex/DepthTest/DepthTest.vertex", "./Shaders/Fragment/DepthTest/LinearDepthTest.frag");
 }
 
 void DepthTest::OnRender()
