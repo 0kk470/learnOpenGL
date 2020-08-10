@@ -286,8 +286,8 @@ void ModelPainter::Default_Init()
 	m_LightingObjShader = new Shader("./Shaders/Vertex/HelloLightCasters/Cube.vertex", "./Shaders/Fragment/HelloLightCasters/Cube.frag");
 	m_LampShader = new Shader("./Shaders/Vertex/HelloLightCasters/Light.vertex", "./Shaders/Fragment/HelloLightCasters/Light.frag");
 	m_ProphetShader = new Shader("./Shaders/Vertex/Model/Cube.vertex", "./Shaders/Fragment/Model/Cube.frag");
-	//m_Prophet = new Model("./resources/paladin_j_nordstrom.fbx");
-	m_Prophet = new Model("./resources/nanosuit/nanosuit.obj");
+	m_Prophet = new Model("./resources/paladin_j_nordstrom.fbx");
+	//m_Prophet = new Model("./resources/nanosuit/nanosuit.obj");
 	diffuseTex = Resource::LoadTexture("./resources/HelloLightMap/WoodenChest.png");
 	SpecularTex = Resource::LoadTexture("./resources/HelloLightMap/WoodenChest_specular.png");
 }

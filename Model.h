@@ -31,6 +31,6 @@ private:
     void ProcessNode(aiNode* node, const aiScene* scene);
     Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
     vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type,
-        string typeName);
+        string typeName, const aiScene* scene);
 };
 

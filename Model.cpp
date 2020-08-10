@@ -78,16 +78,16 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		auto material = scene->mMaterials[mesh->mMaterialIndex];
 		vector<Texture> diffuseMaps = LoadMaterialTextures(material,
-			aiTextureType_DIFFUSE, "texture_diffuse");
+			aiTextureType_DIFFUSE, "texture_diffuse", scene);
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 		vector<Texture> specularMaps = LoadMaterialTextures(material,
-			aiTextureType_SPECULAR, "texture_specular");
+			aiTextureType_SPECULAR, "texture_specular", scene);
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
 	return Mesh(vertices, indices, textures);
 }
 
-vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
+vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName, const aiScene* scene)
 {
 	vector<Texture> textures;
 
@@ -104,13 +104,19 @@ vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type,
 		{
 			Texture tex;
 			auto filePath = StringUtil::Format("%s/%s", directory.c_str(), name.C_Str());
-			tex.id = Resource::LoadTexture(filePath.c_str(), GL_REPEAT, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR);
+
+			auto aitexture = scene->GetEmbeddedTexture(name.C_Str());
+			if (aitexture != nullptr)
+				tex.id = Resource::LoadTextureFromAssImp(aitexture, GL_CLAMP, GL_LINEAR, GL_LINEAR);
+			else
+				tex.id = Resource::LoadTexture(filePath.c_str(), GL_REPEAT, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR);
 			tex.type = typeName;
 			tex.Path = name;
 			textures.push_back(tex);
 			textures_loaded[name.C_Str()] = tex;
 		}
 	}
+
 
 	return textures;
 }
