@@ -206,8 +206,8 @@ int main()
 	//auto painter = CreatePainter("HelloMaterial");
 	//auto painter = CreatePainter("HelloLightMap");
 	//auto painter = CreatePainter("HelloLightCasters");
-	//auto painter = CreatePainter("ModelPainter");
-	auto painter = CreatePainter("DepthTest");
+	auto painter = CreatePainter("ModelPainter");
+	//auto painter = CreatePainter("DepthTest");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);

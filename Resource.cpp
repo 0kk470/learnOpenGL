@@ -41,20 +41,40 @@ GLuint Resource::LoadTextureFromAssImp(const aiTexture* aiTex, GLint wrapMode, G
 {
 	if (aiTex == nullptr)
 		return 0;
-	GLuint textureID;
+	GLuint textureID = 0;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
-	//float borderColor[] = { 1.0f, 0.6f, 0.6f, 1.0f };
-	//glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, MagFilterMode);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, MinFilterMode);
 
-	// Texture specification
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, aiTex->mWidth, aiTex->mHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, aiTex->pcData);
+
+	int width, height, nrChannels;
+	unsigned char* image_data = nullptr;
+	if (aiTex->mHeight == 0)
+	{
+		image_data = stbi_load_from_memory(reinterpret_cast<unsigned char*>(aiTex->pcData), aiTex->mWidth, &width, &height, &nrChannels, 0);
+	}
+	else
+	{
+		image_data = stbi_load_from_memory(reinterpret_cast<unsigned char*>(aiTex->pcData), aiTex->mWidth * aiTex->mHeight, &width, &height, &nrChannels, 0);
+	}
+
+	if (image_data != nullptr)
+	{
+		GLenum format;
+		if (nrChannels == 1)
+			format = GL_RED;
+		else if (nrChannels == 3)
+			format = GL_RGB;
+		else if (nrChannels == 4)
+			format = GL_RGBA;
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, image_data);
+	}
+
 	glGenerateMipmap(GL_TEXTURE_2D);
 	return textureID;
 }

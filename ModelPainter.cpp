@@ -243,8 +243,8 @@ void ModelPainter::DrawProphet(glm::mat4 view , glm::mat4 projection)
 	m_ProphetShader->setMat4("projection", projection);
 	m_ProphetShader->setMat4("view", view);
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(0.1, 0.1, 0.1));
+	model = glm::translate(model, glm::vec3(0.0f, 0.55f, 0.0f));
+	model = glm::scale(model, glm::vec3(0.005f));
 	m_ProphetShader->setMat4("model", model);
 	m_ProphetShader->setFloat("shininess", shininess);
 	m_Prophet->Draw(*m_ProphetShader);
