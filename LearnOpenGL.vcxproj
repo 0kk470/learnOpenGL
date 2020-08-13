@@ -165,6 +165,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="StencilTest.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +275,7 @@
     <ClInclude Include="Painter.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="StencilTest.h" />
     <ClInclude Include="StringUtil.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>

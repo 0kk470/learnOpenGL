@@ -13,6 +13,7 @@
 #include "HelloLightCasters.h"
 #include "ModelPainter.h"
 #include "DepthTest.h"
+#include "StencilTest.h"
 
 bool IsConsoleOpen = true;
 bool IgnoreInput = false;
@@ -124,6 +125,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new DepthTest();
 	}
+	else if (name == "StencilTest")
+	{
+		return new StencilTest();
+	}
 	return new Painter();
 }
 
@@ -206,8 +211,9 @@ int main()
 	//auto painter = CreatePainter("HelloMaterial");
 	//auto painter = CreatePainter("HelloLightMap");
 	//auto painter = CreatePainter("HelloLightCasters");
-	auto painter = CreatePainter("ModelPainter");
+	//auto painter = CreatePainter("ModelPainter");
 	//auto painter = CreatePainter("DepthTest");
+	auto painter = CreatePainter("StencilTest");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);

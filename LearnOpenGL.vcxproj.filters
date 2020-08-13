@@ -58,6 +58,9 @@
     <Filter Include="14_DepthTest">
       <UniqueIdentifier>{4d059188-617d-4c63-a1eb-5fd7416e55fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="15_StencilTest">
+      <UniqueIdentifier>{a1febad2-ce61-415f-9667-01471e71f4b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -134,6 +137,9 @@
     </ClCompile>
     <ClCompile Include="DepthTest.cpp">
       <Filter>14_DepthTest</Filter>
+    </ClCompile>
+    <ClCompile Include="StencilTest.cpp">
+      <Filter>15_StencilTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,6 +464,9 @@
     </ClInclude>
     <ClInclude Include="DepthTest.h">
       <Filter>14_DepthTest</Filter>
+    </ClInclude>
+    <ClInclude Include="StencilTest.h">
+      <Filter>15_StencilTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
