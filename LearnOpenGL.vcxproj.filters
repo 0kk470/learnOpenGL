@@ -61,6 +61,9 @@
     <Filter Include="15_StencilTest">
       <UniqueIdentifier>{a1febad2-ce61-415f-9667-01471e71f4b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="16_Blending">
+      <UniqueIdentifier>{86777361-a353-4fc5-bd8c-2f1f38428e56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -140,6 +143,9 @@
     </ClCompile>
     <ClCompile Include="StencilTest.cpp">
       <Filter>15_StencilTest</Filter>
+    </ClCompile>
+    <ClCompile Include="Blending.cpp">
+      <Filter>16_Blending</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -467,6 +473,9 @@
     </ClInclude>
     <ClInclude Include="StencilTest.h">
       <Filter>15_StencilTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Blending.h">
+      <Filter>16_Blending</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

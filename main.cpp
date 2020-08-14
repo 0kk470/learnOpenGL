@@ -14,6 +14,7 @@
 #include "ModelPainter.h"
 #include "DepthTest.h"
 #include "StencilTest.h"
+#include "Blending.h"
 
 bool IsConsoleOpen = true;
 bool IgnoreInput = false;
@@ -129,6 +130,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new StencilTest();
 	}
+	else if (name == "Blending")
+	{
+		return new Blending();
+	}
 	return new Painter();
 }
 
@@ -213,7 +218,8 @@ int main()
 	//auto painter = CreatePainter("HelloLightCasters");
 	//auto painter = CreatePainter("ModelPainter");
 	//auto painter = CreatePainter("DepthTest");
-	auto painter = CreatePainter("StencilTest");
+	//auto painter = CreatePainter("StencilTest");
+	auto painter = CreatePainter("Blending");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);
