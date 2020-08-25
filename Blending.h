@@ -106,6 +106,7 @@ private:
 	    glm::vec3(0.5f, 0.0f, -0.6f),
 	};
 
+
     GLuint cubeVAO, cubeVBO;
     GLuint planeVAO, planeVBO;
     GLuint transparentVAO, transparentVBO;

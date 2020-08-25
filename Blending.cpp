@@ -9,6 +9,9 @@ void Blending::OnInit()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glGenVertexArrays(1, &cubeVAO);
 	glGenBuffers(1, &cubeVBO);
 	glBindVertexArray(cubeVAO);
@@ -115,6 +118,7 @@ void Blending::DrawGrass()
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, grassTexture);
 	auto model = glm::mat4(1.0f);
+
 	for (unsigned int i = 0; i < vegetation.size(); i++)
 	{
 		model = glm::mat4(1.0f);
@@ -122,10 +126,36 @@ void Blending::DrawGrass()
 		m_GrassShader->setMat4("model", model);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Blending::DrawTransparentWindow()
 {
+	if (!isDrawingTransparentWindow)
+		return;
+	m_NormalShader->Use();
+	m_NormalShader->setInt("texture1", 0);
+	glBindVertexArray(transparentVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, windowTexture);
+	auto model = glm::mat4(1.0f);
+	auto sortedPositions = vegetation;
+
+	std::sort(sortedPositions.begin(), sortedPositions.end(),
+		[](const glm::vec3& pos1, const glm::vec3& pos2)
+		{
+			float dis1 = glm::distance(pos1, Camera::GetMainCamera()->Position);
+			float dis2 = glm::distance(pos2, Camera::GetMainCamera()->Position);
+			return dis1 > dis2;
+		});
+	for (unsigned int i = 0; i < sortedPositions.size(); i++)
+	{
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, sortedPositions[i]);
+		m_NormalShader->setMat4("model", model);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+	}
 }
 
 void Blending::DrawFloor()
