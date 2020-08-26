@@ -15,6 +15,7 @@
 #include "DepthTest.h"
 #include "StencilTest.h"
 #include "Blending.h"
+#include "FaceCulling.h"
 
 bool IsConsoleOpen = true;
 bool IgnoreInput = false;
@@ -134,6 +135,10 @@ Painter* CreatePainter(const char* name)
 	{
 		return new Blending();
 	}
+	else if (name == "FaceCulling")
+	{
+		return new FaceCulling();
+	}
 	return new Painter();
 }
 
@@ -219,7 +224,8 @@ int main()
 	//auto painter = CreatePainter("ModelPainter");
 	//auto painter = CreatePainter("DepthTest");
 	//auto painter = CreatePainter("StencilTest");
-	auto painter = CreatePainter("Blending");
+	//auto painter = CreatePainter("Blending");
+	auto painter = CreatePainter("FaceCulling");
 	painter->OnInit();
 	painter->OnWindowAttach(window);
 	glfwSetWindowUserPointer(window, painter);

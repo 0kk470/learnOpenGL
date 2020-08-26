@@ -64,6 +64,9 @@
     <Filter Include="16_Blending">
       <UniqueIdentifier>{86777361-a353-4fc5-bd8c-2f1f38428e56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="17_FaceCulling">
+      <UniqueIdentifier>{c396f09d-02c9-4c3c-af2c-8db35a00549e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelloShader.cpp">
@@ -146,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="Blending.cpp">
       <Filter>16_Blending</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceCulling.cpp">
+      <Filter>17_FaceCulling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -476,6 +482,9 @@
     </ClInclude>
     <ClInclude Include="Blending.h">
       <Filter>16_Blending</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceCulling.h">
+      <Filter>17_FaceCulling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
